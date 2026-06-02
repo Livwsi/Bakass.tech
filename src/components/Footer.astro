@@ -1,0 +1,23 @@
+---
+const year = new Date().getFullYear();
+const LINKEDIN = "https://www.linkedin.com/in/ismailbakass/";
+---
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="logo"><span class="mark"></span>bakass<span class="dim">.tech</span></div>
+    <a class="li" href={LINKEDIN} target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
+  <div class="wrap foot-bottom">© {year} Ismail Bakass</div>
+</footer>
+
+<style>
+  footer { padding: 44px 32px 40px; }
+  .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
+  .logo { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 18px; letter-spacing: -.02em; }
+  .logo .mark { width: 24px; height: 24px; background: var(--flame-v); border-radius: var(--r); }
+  .logo .dim { color: var(--ink-soft); font-weight: 400; }
+  .li { font-family: var(--mono); font-size: 14px; color: var(--ink); text-decoration: none; border: 1px solid var(--line-2); padding: 9px 16px; border-radius: var(--r); transition: all .2s; }
+  .li:hover { background: var(--ink); color: var(--cream); }
+  .foot-bottom { margin-top: 28px; font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+</style>

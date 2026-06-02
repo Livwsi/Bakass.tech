@@ -1,0 +1,29 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.local
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+
+# ML
+mlruns/
+ml/data/
+ml/checkpoints/
+*.h5
+
+# Worker
+worker/node_modules/
+worker/.wrangler/
+worker/dist/
+
+# OS
+.DS_Store
+Thumbs.db

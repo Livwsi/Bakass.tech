@@ -1,0 +1,185 @@
+---
+// Hero section. Sits above the fold. Right side renders a fake
+// confusion-matrix as a visual nod to the ML theme.
+---
+
+<header id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-left">
+      <span class="badge">
+        <span class="dot"></span>AI Engineer · High-tech Electronics background
+      </span>
+      <h1>
+        AI engineer with roots<br />
+        in <span class="grad">high-tech electronics.</span>
+      </h1>
+      <p class="sub">
+        Passionate about technology and learning. I build ML and data systems end to end, models,
+        pipelines, and deployment, with hardware intuition from years in electronics. The demos
+        below are live and run on your device.
+      </p>
+      <div class="cta-row">
+        <a href="#ask" class="btn btn-primary">Ask my AI →</a>
+        <a href="#cv-demos" class="btn btn-ghost">Try the demos</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-glow"></div>
+      <div class="matrix" id="mtx"></div>
+      <div class="matrix-lbl">neural activations · live</div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Continuously-animating activation grid, reads as "live inference".
+  // A wave of cells lights up across a 6x6 grid on a loop.
+  const mtx = document.getElementById("mtx");
+  if (mtx) {
+    const N = 36, cells = [];
+    for (let i = 0; i < N; i++) {
+      const d = document.createElement("div");
+      mtx.appendChild(d);
+      cells.push(d);
+    }
+    let t = 0;
+    setInterval(() => {
+      t += 0.18;
+      for (let i = 0; i < N; i++) {
+        const r = Math.floor(i / 6), c = i % 6;
+        // travelling wave + diagonal bias (mimics a confident classifier)
+        const wave = Math.sin(t - (r + c) * 0.5);
+        const diag = r === c ? 0.5 : 0;
+        cells[i].className = wave + diag > 0.55 ? "hot" : "";
+      }
+    }, 90);
+  }
+</script>
+
+<style>
+  header {
+    position: relative;
+    border-bottom: 1px solid var(--line-2);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    min-height: 540px;
+  }
+  .hero-left {
+    padding: 130px 32px 70px;
+    border-right: 1px solid var(--line-2);
+    position: relative;
+    z-index: 1;
+  }
+  .hero-right {
+    position: relative;
+    background: var(--cream-2);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -20%; right: -30%;
+    width: 560px; height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(13, 190, 148, 0.35), transparent 65%);
+    filter: blur(14px);
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r);
+    padding: 6px 13px;
+    margin-bottom: 26px;
+    animation: fade .8s ease both;
+  }
+  .badge .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--c2);
+    box-shadow: 0 0 0 3px rgba(13, 190, 148, 0.25);
+  }
+  h1 {
+    font-size: clamp(38px, 5.6vw, 72px);
+    line-height: .96;
+    letter-spacing: -.04em;
+    font-weight: 700;
+    margin-bottom: 24px;
+    animation: fade .8s ease .1s both;
+  }
+  .grad {
+    background: var(--flame);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin-bottom: 34px;
+    animation: fade .8s ease .2s both;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    animation: fade .8s ease .3s both;
+    border: 1px solid var(--line-2);
+    width: fit-content;
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  .btn {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 13px 26px;
+    transition: all .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary { background: var(--ink); color: var(--cream); }
+  .btn-primary:hover { background: #000; }
+  .btn-ghost { color: var(--ink); border-left: 1px solid var(--line-2); }
+  .btn-ghost:hover { background: var(--cream-2); }
+
+  .matrix {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    width: 78%;
+  }
+  .matrix :global(div) {
+    aspect-ratio: 1;
+    border-radius: var(--r);
+    background: var(--cream);
+    border: 1px solid var(--line);
+  }
+  .matrix :global(div) { transition: background .25s ease, border-color .25s ease; }
+  .matrix :global(div.hot) {
+    background: var(--flame-v);
+    border-color: transparent;
+  }
+  .matrix-lbl {
+    position: absolute;
+    bottom: 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+  }
+</style>

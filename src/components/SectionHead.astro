@@ -1,0 +1,14 @@
+---
+interface Props {
+  tag: string;
+  title: string;
+  desc?: string;
+}
+const { tag, title, desc } = Astro.props;
+---
+
+<div class="sec-head reveal">
+  <div class="sec-tag">{tag}</div>
+  <h2 class="sec-title">{title}</h2>
+  {desc && <p class="sec-desc">{desc}</p>}
+</div>

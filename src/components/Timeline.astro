@@ -1,0 +1,128 @@
+---
+// Career, education and volunteering. Grouped; job entries show title + dates only.
+interface Role { title: string; period: string; }
+interface Company { org: string; tag?: string; roles: Role[]; }
+interface Edu { org: string; title: string; period: string; note?: string; }
+interface Vol { title: string; org: string; period: string; }
+
+const work: Company[] = [
+  { org: "Neways Electronics International", roles: [
+    { title: "Test Engineer", period: "Oct 2025 to Present" },
+  ]},
+  { org: "VTEC Lasers & Sensors", tag: "AI / ML", roles: [
+    { title: "Electronics Engineer", period: "Feb 2025 to Oct 2025" },
+    { title: "Graduation Internship, Electronics", period: "Sep 2024 to Jan 2025" },
+    { title: "Electronics Engineer", period: "Jun 2024 to Sep 2024" },
+    { title: "R&D Internship, Electronics", period: "Jan 2024 to Jun 2024" },
+    { title: "Junior Electronics Engineer", period: "Feb 2023 to Jan 2024" },
+  ]},
+  { org: "Signify", roles: [
+    { title: "R&D Internship, Electronics", period: "Feb 2024 to Jan 2025" },
+  ]},
+  { org: "IDbike", roles: [
+    { title: "R&D Internship, Electronics", period: "Sep 2023 to Feb 2024" },
+  ]},
+];
+
+const education: Edu[] = [
+  { org: "Fontys University of Applied Sciences", title: "BEng, Electrical & Electronics Engineering", period: "2021 to 2025",
+    note: "Specialisation: Electronic Systems. Thesis: machine learning for hand-gesture recognition using a PPG sensor." },
+  { org: "Université Ibn Zohr", title: "Associate's degree, Physics", period: "2019 to 2021" },
+  { org: "Sidi Ou Sidi High School", title: "High School Diploma, Physics", period: "2019" },
+];
+
+const volunteering: Vol[] = [
+  { title: "Board Treasurer, Photography Association", org: "ESFF Dekate Mousa", period: "Sep 2024 to Feb 2026" },
+  { title: "Board Member, Public Relations", org: "Fontys PROUD Honours program", period: "Nov 2022 to Sep 2024" },
+  { title: "Volunteer", org: "VluchtelingenWerk Nederland", period: "Apr 2025 to Present" },
+  { title: "Volunteer", org: "Stichting Vluchtelingen In De Knel", period: "Apr 2025 to Present" },
+];
+---
+
+<div class="tl">
+  <!-- WORK -->
+  <div class="tl-group">
+    <div class="tl-head">Work</div>
+    {work.map((c) => (
+      <div class="company">
+        <div class="company-bar">
+          <span class="company-name">{c.org}</span>
+          {c.tag && <span class="company-tag">{c.tag}</span>}
+        </div>
+        {c.roles.map((r) => (
+          <div class="role">
+            <span class="dot"></span>
+            <span class="role-title">{r.title}</span>
+            <span class="role-period">{r.period}</span>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="tl-group">
+    <div class="tl-head">Education</div>
+    {education.map((e) => (
+      <div class="edu">
+        <div class="edu-top">
+          <span class="edu-title">{e.title}</span>
+          <span class="role-period">{e.period}</span>
+        </div>
+        <div class="edu-org">{e.org}</div>
+        {e.note && <div class="edu-note">{e.note}</div>}
+      </div>
+    ))}
+  </div>
+
+  <!-- VOLUNTEERING -->
+  <div class="tl-group">
+    <div class="tl-head">Volunteering</div>
+    {volunteering.map((v) => (
+      <div class="vol">
+        <span class="dot vol-dot"></span>
+        <div class="vol-body">
+          <span class="vol-title">{v.title}</span>
+          <span class="vol-org">{v.org}</span>
+        </div>
+        <span class="role-period">{v.period}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .tl { border-top: 1px solid var(--line-2); margin-top: 46px; display: grid; grid-template-columns: 1fr 1fr; }
+  .tl-group { padding: 30px 32px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .tl-group:first-child { grid-row: span 2; border-right: 1px solid var(--line); }
+  .tl-head { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); margin-bottom: 20px; }
+
+  .company { margin-bottom: 20px; }
+  .company:last-child { margin-bottom: 0; }
+  .company-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .company-name { font-size: 15px; font-weight: 600; }
+  .company-tag { font-family: var(--mono); font-size: 10px; color: #04221d; background: var(--flame-v); padding: 2px 7px; border-radius: var(--r); }
+  .role { display: grid; grid-template-columns: 14px 1fr auto; align-items: center; gap: 10px; padding: 5px 0 5px 6px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c2); }
+  .role-title { font-size: 14px; }
+  .role-period { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+
+  .edu { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .edu:last-child { border-bottom: none; }
+  .edu-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .edu-title { font-size: 15px; font-weight: 600; }
+  .edu-org { font-family: var(--mono); font-size: 12px; color: var(--c1); margin-top: 3px; }
+  .edu-note { font-size: 13px; color: var(--ink-soft); margin-top: 7px; }
+
+  .vol { display: grid; grid-template-columns: 14px 1fr auto; align-items: start; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+  .vol:last-child { border-bottom: none; }
+  .vol-dot { background: var(--cream); border: 2px solid var(--c1); margin-top: 4px; }
+  .vol-body { display: flex; flex-direction: column; }
+  .vol-title { font-size: 14px; font-weight: 500; }
+  .vol-org { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); margin-top: 2px; }
+
+  @media (max-width: 860px) {
+    .tl { grid-template-columns: 1fr; }
+    .tl-group, .tl-group:first-child { border-right: none; }
+  }
+</style>

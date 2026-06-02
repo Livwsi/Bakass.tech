@@ -1,0 +1,36 @@
+---
+const skills = [
+  "Python",
+  "PyTorch",
+  "TensorFlow.js",
+  "MediaPipe",
+  "LLM / RAG",
+  "MLflow",
+  "D3.js",
+  "CI/CD",
+];
+---
+
+<div class="wrap skill-bar">
+  {skills.map((s) => <div class="chip">{s}</div>)}
+</div>
+
+<style>
+  .skill-bar {
+    display: flex;
+    border-bottom: 1px solid var(--line-2);
+    overflow: hidden;
+  }
+  .chip {
+    flex: 1;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-soft);
+    padding: 16px 8px;
+    border-right: 1px solid var(--line);
+    transition: all .2s;
+  }
+  .chip:last-child { border-right: none; }
+  .chip:hover { background: var(--cream-2); color: var(--ink); }
+</style>

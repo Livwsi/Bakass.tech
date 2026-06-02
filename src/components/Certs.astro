@@ -1,0 +1,82 @@
+---
+// Certificates. EDIT the array below with your real certificates.
+// For each: set issuer, title, year, an optional credential URL, and
+// optionally an image filename you drop into /public/certs/.
+// If `img` is omitted, a clean monogram tile is shown instead.
+
+interface Cert {
+  title: string;
+  issuer: string;
+  year: string;
+  url?: string;
+  img?: string; // e.g. "deeplearning-ai.png" → /public/certs/deeplearning-ai.png
+}
+
+const certs: Cert[] = [
+  { title: "Exploratory Data Analysis for Machine Learning", issuer: "IBM", year: "2024" },
+  { title: "Simulation of Power Electronics Circuits using Python", issuer: "Online course", year: "2024" },
+  { title: "Basics of Power Electronics", issuer: "Online course", year: "2023" },
+  { title: "Creative Thinking and Innovation", issuer: "Certificate", year: "2023" },
+]
+---
+
+<div class="certs">
+  {certs.map((c) => (
+    <a class="cert" href={c.url ?? "#"} target={c.url ? "_blank" : undefined} rel="noopener">
+      <div class="cert-badge">
+        {c.img ? (
+          <img src={`/certs/${c.img}`} alt={c.issuer} loading="lazy" />
+        ) : (
+          <span class="cert-mono">{c.issuer.split(/[\s/.]+/).map((w) => w[0]).slice(0, 2).join("")}</span>
+        )}
+      </div>
+      <div class="cert-body">
+        <div class="cert-title">{c.title}</div>
+        <div class="cert-meta">{c.issuer} · {c.year}</div>
+      </div>
+      <span class="cert-arrow">{c.url ? "↗" : ""}</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--line-2);
+    margin-top: 46px;
+  }
+  .cert {
+    display: flex; align-items: center; gap: 16px;
+    padding: 24px 32px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background .2s;
+  }
+  .cert:nth-child(2n) { border-right: none; }
+  .cert:hover { background: var(--cream-2); }
+  .cert-badge {
+    width: 48px; height: 48px; flex-shrink: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--cream);
+    display: grid; place-items: center;
+    overflow: hidden;
+  }
+  .cert-badge img { width: 100%; height: 100%; object-fit: contain; }
+  .cert-mono {
+    font-family: var(--mono); font-weight: 600; font-size: 16px;
+    background: var(--flame); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .cert-title { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+  .cert-meta { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+  .cert-arrow { margin-left: auto; color: var(--ink-soft); }
+
+  @media (max-width: 760px) {
+    .certs { grid-template-columns: 1fr; }
+    .cert { border-right: none; }
+  }
+</style>

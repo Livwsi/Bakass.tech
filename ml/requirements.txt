@@ -1,0 +1,4 @@
+tensorflow==2.16.2
+tensorflowjs==4.22.0
+mlflow==2.18.0
+numpy<2.0

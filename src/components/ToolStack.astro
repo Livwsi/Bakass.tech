@@ -1,0 +1,93 @@
+---
+// Tools & technologies, grouped, with logos from simple-icons CDN.
+// Items without a reliable brand icon use a clean text monogram.
+interface Tool { name: string; slug?: string; }
+interface Group { title: string; tools: Tool[]; }
+
+const groups: Group[] = [
+  {
+    title: "AI / ML",
+    tools: [
+      { name: "Python", slug: "python" },
+      { name: "PyTorch", slug: "pytorch" },
+      { name: "TensorFlow", slug: "tensorflow" },
+      { name: "Keras", slug: "keras" },
+      { name: "scikit-learn", slug: "scikitlearn" },
+      { name: "OpenCV", slug: "opencv" },
+      { name: "MLflow", slug: "mlflow" },
+    ],
+  },
+  {
+    title: "Data & Analytics",
+    tools: [
+      { name: "Power BI" },
+      { name: "Databricks", slug: "databricks" },
+      { name: "Apache Spark", slug: "apachespark" },
+      { name: "pandas", slug: "pandas" },
+      { name: "NumPy", slug: "numpy" },
+      { name: "PostgreSQL", slug: "postgresql" },
+      { name: "Jupyter", slug: "jupyter" },
+      { name: "D3.js", slug: "d3dotjs" },
+    ],
+  },
+  {
+    title: "Software / DevOps",
+    tools: [
+      { name: "TypeScript", slug: "typescript" },
+      { name: "FastAPI", slug: "fastapi" },
+      { name: "Docker", slug: "docker" },
+      { name: "Git", slug: "git" },
+      { name: "GitHub Actions", slug: "githubactions" },
+      { name: "Azure" },
+      { name: "Astro", slug: "astro" },
+    ],
+  },
+  {
+    title: "Hardware / Embedded",
+    tools: [
+      { name: "C", slug: "c" },
+      { name: "C++", slug: "cplusplus" },
+      { name: "Arduino", slug: "arduino" },
+      { name: "STM32" },
+      { name: "Altium" },
+      { name: "MPLAB" },
+      { name: "Raspberry Pi", slug: "raspberrypi" },
+    ],
+  },
+];
+---
+
+<div class="tools">
+  {groups.map((g) => (
+    <div class="tool-group">
+      <h4>{g.title}</h4>
+      <div class="tool-grid">
+        {g.tools.map((t) => (
+          <div class="tool" title={t.name}>
+            {t.slug ? (
+              <img src={`https://cdn.simpleicons.org/${t.slug}`} alt={t.name} width="20" height="20" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'tool-mark',textContent:this.alt.slice(0,2)}))" />
+            ) : (
+              <span class="tool-mark">{t.name.slice(0, 2)}</span>
+            )}
+            <span class="tool-name">{t.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .tools { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line-2); margin-top: 46px; }
+  .tool-group { padding: 26px 26px; border-right: 1px solid var(--line); }
+  .tool-group:last-child { border-right: none; }
+  .tool-group h4 { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); margin-bottom: 18px; }
+  .tool-grid { display: flex; flex-direction: column; gap: 12px; }
+  .tool { display: flex; align-items: center; gap: 11px; font-size: 14px; transition: transform .15s; }
+  .tool:hover { transform: translateX(3px); }
+  .tool img { display: block; }
+  .tool-mark { width: 20px; height: 20px; display: grid; place-items: center; background: var(--cream-2); border: 1px solid var(--line); border-radius: var(--r); font-family: var(--mono); font-size: 9px; color: var(--ink-soft); flex-shrink: 0; }
+  .tool-name { color: var(--ink); }
+  @media (max-width: 900px) { .tools { grid-template-columns: repeat(2, 1fr); } .tool-group:nth-child(2n){border-right:none} }
+  @media (max-width: 560px) { .tools { grid-template-columns: 1fr; } .tool-group { border-right: none; border-bottom: 1px solid var(--line); } }
+</style>

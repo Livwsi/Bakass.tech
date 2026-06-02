@@ -1,0 +1,90 @@
+/* ============================================================
+   bakass.tech, design tokens
+   Palette derived from the teal/emerald glass background of the
+   profile photo (sampled via k-means). Replaces the old flame.
+   ============================================================ */
+
+:root {
+  /* Surface, cool paper */
+  --cream:    #F7F9F9;
+  --cream-2:  #E8F0EF;
+
+  /* Ink, near-black with a cool cast */
+  --ink:      #0F1716;
+  --ink-soft: #46514F;
+
+  /* "Tide" palette, sampled from photo (#0DBE94 is the punch) */
+  --c1: #0E6E63;  /* deep teal     */
+  --c2: #0DBE94;  /* emerald       */
+  --c3: #2FD3C0;  /* aqua          */
+  --c4: #8FE9D6;  /* mint          */
+
+  /* Lines */
+  --line:    #D5E2E0; /* soft divider */
+  --line-2:  #0F1716; /* hard divider */
+
+  /* Dark-surface border (inside ink-colored boxes) */
+  --ink-line: #1d2b29;
+
+  /* Gradients */
+  --flame:    linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4));
+  --flame-v:  linear-gradient(160deg, var(--c1), var(--c2) 45%, var(--c3) 75%, var(--c4));
+
+  /* Type */
+  --font: "Space Grotesk", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Geometry, squary */
+  --r: 2px;
+  --r-lg: 4px;
+  --pad: 32px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  opacity: .022;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap { max-width: 1200px; margin: 0 auto; }
+.pad  { padding-left: var(--pad); padding-right: var(--pad); }
+
+section { border-bottom: 1px solid var(--line-2); }
+.sec-head { padding: 60px var(--pad) 0; }
+.sec-tag {
+  font-family: var(--mono); font-size: 13px;
+  color: var(--c1); letter-spacing: .05em; margin-bottom: 10px;
+}
+.sec-title {
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -.03em; font-weight: 700; line-height: 1.04;
+}
+.sec-desc {
+  color: var(--ink-soft); max-width: 540px; margin-top: 12px; font-size: 16px;
+}
+
+.pill {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-soft);
+  border: 1px solid var(--line); padding: 4px 9px; border-radius: var(--r);
+}
+
+.reveal { opacity: 0; transform: translateY(26px); transition: all .7s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+@keyframes fade  { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes pulse { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+@keyframes blink { 0%, 80%, 100% { opacity: .3; } 40% { opacity: 1; } }
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");

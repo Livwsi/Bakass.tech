@@ -1,0 +1,61 @@
+---
+// Top-level sticky navigation. All links jump within the single-page layout.
+---
+
+<nav>
+  <div class="wrap pad nav-inner">
+    <a href="#top" class="logo">
+      <span class="mark"></span>bakass<span class="dim">.tech</span>
+    </a>
+    <div class="nav-links">
+      <a href="#ask">Ask AI</a>
+      <a href="#tools">Stack</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#cv-demos">Demos</a>
+      <a href="#data">Data</a>
+      <a href="https://www.linkedin.com/in/ismailbakass/" class="nav-cta" target="_blank" rel="noopener">Let's connect</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    backdrop-filter: blur(12px);
+    background: rgba(251, 248, 242, 0.82);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 9px;
+    font-weight: 700; font-size: 18px; letter-spacing: -.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .logo .mark {
+    width: 24px; height: 24px; background: var(--flame-v); border-radius: var(--r);
+  }
+  .logo .dim { color: var(--ink-soft); font-weight: 400; }
+  .nav-links { display: flex; align-items: center; height: 100%; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 16px;
+    height: 100%;
+    display: flex; align-items: center;
+    border-left: 1px solid var(--line);
+    transition: all .2s;
+  }
+  .nav-links a:hover { color: var(--ink); background: var(--cream-2); }
+  .nav-cta { background: var(--ink); color: var(--cream) !important; }
+  .nav-cta:hover { background: #000 !important; }
+
+  @media (max-width: 860px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+</style>

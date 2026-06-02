@@ -1,0 +1,20 @@
+# Cloudflare Worker config — bakass-chat
+# Deploy:  wrangler deploy
+# Secrets: wrangler secret put ANTHROPIC_API_KEY
+
+name = "bakass-chat"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+# Permissive CORS handled in code; site origin pinned via env var.
+[vars]
+ALLOWED_ORIGIN = "https://bakass.tech"
+MODEL = "claude-haiku-4-5-20251001"
+MAX_TOKENS = "400"
+
+# Rate-limit binding (set up via dashboard or wrangler CLI)
+# [[unsafe.bindings]]
+# name = "RATE_LIMITER"
+# type = "ratelimit"
+# namespace_id = "1001"
+# simple = { limit = 30, period = 60 }

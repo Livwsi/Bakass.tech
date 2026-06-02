@@ -1,0 +1,141 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Footer from "../components/Footer.astro";
+import ToolStack from "../components/ToolStack.astro";
+import Certs from "../components/Certs.astro";
+import Timeline from "../components/Timeline.astro";
+
+import ChatBot from "../components/ChatBot.tsx";
+import SkillMatrix from "../components/SkillMatrix.tsx";
+import GestureDemo from "../components/GestureDemo.tsx";
+import ObjectDemo from "../components/ObjectDemo.tsx";
+import DigitDemo from "../components/DigitDemo.tsx";
+import DataExplorer from "../components/DataExplorer.tsx";
+---
+
+<Base>
+  <Nav />
+  <Hero />
+
+  <!-- 01 - AI : RAG chatbot + photo -->
+  <section id="ask">
+    <div class="wrap">
+      <SectionHead
+        tag="// 01, AI"
+        title="Ask my CV anything"
+        desc="A retrieval-augmented assistant grounded in my experience. It answers from my CV, capabilities, projects, and background."
+      />
+      <div class="chat reveal">
+        <div class="chat-info">
+          <img class="me" src="/img/ismail.jpg" alt="Ismail Bakass" />
+          <h3>Ismail Bakass</h3>
+          <p class="role">AI Engineer · High-tech electronics background · Eindhoven, NL</p>
+          <p class="tagline">Passionate about technology and learning.</p>
+          <div class="stack">
+            <span class="pill">Python</span><span class="pill">PyTorch</span><span class="pill">Power BI</span>
+            <span class="pill">RAG / LLM</span><span class="pill">CI/CD</span><span class="pill">Embedded</span>
+          </div>
+        </div>
+        <ChatBot client:visible />
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 - Tools (moved up) -->
+  <section id="tools">
+    <div class="wrap">
+      <SectionHead
+        tag="// 02, STACK"
+        title="Tools & technologies"
+        desc="The kit I reach for, heavy on ML and data, grounded in software and hardware."
+      />
+      <ToolStack />
+    </div>
+  </section>
+
+  <!-- 03 - Capability matrix -->
+  <section id="skills">
+    <div class="wrap">
+      <SectionHead
+        tag="// 03, CAPABILITIES"
+        title="What I can build"
+        desc="Across two worlds: hardware/embedded and AI/ML/software. Filter by domain."
+      />
+      <div class="reveal"><SkillMatrix client:visible /></div>
+    </div>
+  </section>
+
+  <!-- 04 - Experience timeline -->
+  <section id="experience">
+    <div class="wrap">
+      <SectionHead
+        tag="// 04, EXPERIENCE"
+        title="Experience"
+        desc="Work, education, and volunteering."
+      />
+      <Timeline />
+    </div>
+  </section>
+
+  <!-- 05 - CV demos -->
+  <section id="cv-demos">
+    <div class="wrap">
+      <SectionHead
+        tag="// 05, COMPUTER VISION"
+        title="Three models, your device"
+        desc="Client-side inference, WebGL-accelerated, nothing uploaded. The MNIST CNN was trained by me (98% test accuracy); gesture + detection use SOTA pre-trained models."
+      />
+      <div class="demo-row reveal">
+        <GestureDemo client:visible />
+        <ObjectDemo client:visible />
+        <DigitDemo client:visible />
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 - Data explorer -->
+  <section id="data">
+    <div class="wrap">
+      <SectionHead
+        tag="// 06, DATA SCIENCE"
+        title="The Netherlands, by the numbers"
+        desc="Multi-indicator explorer with three views, trend, heatmap, and an interactive Europe map. ETL pipeline pulls OWID data on a CI cron, validates with Pydantic, serves clean JSON."
+      />
+      <div class="reveal"><DataExplorer client:visible /></div>
+    </div>
+  </section>
+
+  <!-- 07 - Certificates -->
+  <section id="certs">
+    <div class="wrap">
+      <SectionHead
+        tag="// 07, CREDENTIALS"
+        title="Certificates"
+        desc="Formal training and verified credentials."
+      />
+      <Certs />
+    </div>
+  </section>
+
+  <Footer />
+</Base>
+
+<style>
+  .chat { display: grid; grid-template-columns: 0.9fr 1.1fr; border-top: 1px solid var(--line-2); margin-top: 46px; }
+  .chat-info { padding: 40px 32px; border-right: 1px solid var(--line-2); }
+  .chat-info .me { width: 100%; max-width: 240px; aspect-ratio: 1; border-radius: var(--r); object-fit: cover; border: 1px solid var(--line); margin-bottom: 18px; display: block; }
+  .chat-info h3 { font-size: 22px; letter-spacing: -.02em; }
+  .chat-info .role { font-family: var(--mono); font-size: 12px; color: var(--c1); margin: 5px 0 10px; }
+  .chat-info .tagline { font-size: 15px; color: var(--ink-soft); margin-bottom: 16px; }
+  .stack { display: flex; gap: 6px; flex-wrap: wrap; }
+  .demo-row { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line-2); margin-top: 46px; }
+  @media (max-width: 860px) {
+    .chat { grid-template-columns: 1fr; }
+    .chat-info { border-right: none; border-bottom: 1px solid var(--line-2); }
+    .chat-info .me { max-width: 180px; }
+    .demo-row { grid-template-columns: 1fr; }
+  }
+</style>
