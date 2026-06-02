@@ -1,1 +1,0 @@
-# Bakass.tech
