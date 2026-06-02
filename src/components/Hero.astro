@@ -36,7 +36,7 @@
   // A wave of cells lights up across a 6x6 grid on a loop.
   const mtx = document.getElementById("mtx");
   if (mtx) {
-    const N = 36, cells = [];
+    const N = 36; const cells: HTMLDivElement[] = [];
     for (let i = 0; i < N; i++) {
       const d = document.createElement("div");
       mtx.appendChild(d);

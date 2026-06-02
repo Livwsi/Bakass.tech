@@ -118,11 +118,11 @@ export default function DigitDemo() {
         if (!found) return tf.zeros([1, 28, 28, 1]);
 
         const bw = maxX - minX + 1, bh = maxY - minY + 1;
-        const cropped = img.slice([minY, minX, 0], [bh, bw, 1]);
+        const cropped = img.slice([minY, minX, 0], [bh, bw, 1]) as import("@tensorflow/tfjs").Tensor3D;
         // scale long side to 20px, keep aspect
         const scale = 20 / Math.max(bw, bh);
         const rh = Math.max(1, Math.round(bh * scale)), rw = Math.max(1, Math.round(bw * scale));
-        const resized = tf.image.resizeBilinear(cropped as Tensor, [rh, rw]);
+        const resized = tf.image.resizeBilinear(cropped, [rh, rw]);
         // pad into 28x28, centered
         const padTop = Math.floor((28 - rh) / 2), padLeft = Math.floor((28 - rw) / 2);
         const padded = resized.pad([[padTop, 28 - rh - padTop], [padLeft, 28 - rw - padLeft], [0, 0]]);

@@ -81,23 +81,23 @@ export default function DataExplorer() {
       const p = g.append("path").datum(ind.series).attr("fill", "none").attr("stroke", "#0DBE94").attr("stroke-width", 2.5).attr("d", line as any);
       const len = (p.node() as SVGPathElement).getTotalLength();
       p.attr("stroke-dasharray", `${len} ${len}`).attr("stroke-dashoffset", len).transition().duration(900).attr("stroke-dashoffset", 0);
-      g.selectAll("circle").data(ind.series).join("circle").attr("cx", (d) => x(d.year)).attr("cy", (d) => y(d.value)).attr("r", 3).attr("fill", "#0E6E63")
+      g.selectAll("circle").data(ind.series).join("circle").attr("cx", (d: Point) => x(d.year)).attr("cy", (d: Point) => y(d.value)).attr("r", 3).attr("fill", "#0E6E63")
         .on("mousemove", (e: any, d: any) => showTip(e, `${d.year}: ${d.value} ${ind.unit}`)).on("mouseleave", hideTip);
     };
 
-    const drawHeatmap = (sel: any, W: number, H: number, ind: Indicator) => {
+    const drawHeatmap = (sel: any, W: number, _H: number, ind: Indicator) => {
       const m = { top: 46, right: 24, bottom: 30, left: 24 }, iw = W - m.left - m.right;
       const g = sel.append("g").attr("transform", `translate(${m.left},${m.top})`);
       const vals = ind.series.map((d) => d.value);
       const color = d3.scaleQuantize<string>().domain([d3.min(vals)!, d3.max(vals)!]).range(TEAL);
       const cellW = iw / ind.series.length, cellH = 110;
-      g.selectAll("rect").data(ind.series).join("rect").attr("x", (_d, i) => i * cellW).attr("y", 0)
+      g.selectAll("rect").data(ind.series).join("rect").attr("x", (_d: Point, i: number) => i * cellW).attr("y", 0)
         .attr("width", cellW - 3).attr("height", cellH).attr("rx", 2).attr("fill", "#E3EFEC")
         .on("mousemove", (e: any, d: any) => showTip(e, `${d.year}: ${d.value} ${ind.unit}`)).on("mouseleave", hideTip)
-        .transition().delay((_d, i) => i * 40).attr("fill", (d) => color(d.value));
-      g.selectAll("text.yr").data(ind.series).join("text").attr("class", "yr").attr("x", (_d, i) => i * cellW + (cellW - 3) / 2)
+        .transition().delay((_d: Point, i: number) => i * 40).attr("fill", (d: Point) => color(d.value));
+      g.selectAll("text.yr").data(ind.series).join("text").attr("class", "yr").attr("x", (_d: Point, i: number) => i * cellW + (cellW - 3) / 2)
         .attr("y", cellH + 18).attr("text-anchor", "middle").style("font-family", "JetBrains Mono, monospace").style("font-size", "10px")
-        .style("fill", "#46514F").text((d) => `'${String(d.year).slice(2)}`);
+        .style("fill", "#46514F").text((d: Point) => `'${String(d.year).slice(2)}`);
       sel.append("text").attr("x", m.left).attr("y", 26).style("font-family", "JetBrains Mono, monospace").style("font-size", "11px")
         .style("fill", "#46514F").text(`${ind.label} by year, darker = higher (${ind.unit})`);
     };
@@ -127,10 +127,10 @@ export default function DataExplorer() {
       const bounds = [lo, ...thresholds, hi];
       const lx = 14, ly = H - 30, sw = 30;
       const lg = sel.append("g").attr("transform", `translate(${lx},${ly})`);
-      lg.selectAll("rect").data(TEAL).join("rect").attr("x", (_d, i) => i * sw).attr("y", 0).attr("width", sw).attr("height", 9).attr("fill", (d) => d);
-      lg.selectAll("text").data(bounds).join("text").attr("x", (_d, i) => i * sw).attr("y", 24)
+      lg.selectAll("rect").data(TEAL).join("rect").attr("x", (_d: string, i: number) => i * sw).attr("y", 0).attr("width", sw).attr("height", 9).attr("fill", (d: string) => d);
+      lg.selectAll("text").data(bounds).join("text").attr("x", (_d: number, i: number) => i * sw).attr("y", 24)
         .style("font-family", "JetBrains Mono, monospace").style("font-size", "9px").style("fill", "#46514F").attr("text-anchor", "middle")
-        .text((d) => d3.format("~s")(d));
+        .text((d: number) => d3.format("~s")(d));
     };
 
     render();
