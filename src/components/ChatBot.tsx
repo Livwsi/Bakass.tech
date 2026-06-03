@@ -25,24 +25,28 @@ const SUGGESTED = [
 
 // ---- local fallback knowledge base ----
 const KB: { k: string[]; a: string }[] = [
+  { k: ["system", "build", "intelligent", "automation", "automate", "pipeline", "end to end", "end-to-end"],
+    a: "He builds intelligent systems end to end: data ingestion and ETL, model training and evaluation, then deployment as automated, monitored services. The goal is always a system that runs reliably in production, not a notebook that works once." },
   { k: ["computer vision", "cv", "vision", "gesture", "image", "detection"],
-    a: "He builds computer-vision systems: real-time hand-gesture recognition with MediaPipe, object detection, and CNNs trained from scratch for image classification (the handwriting model here hits 98% test accuracy)." },
-  { k: ["production", "deploy", "deployed", "mlops", "serve"],
-    a: "He can take models to production end to end: training pipelines, MLflow experiment tracking, FastAPI serving, Docker packaging, cloud deployment, and monitoring." },
+    a: "He builds computer-vision systems: real-time hand-gesture recognition with MediaPipe, object detection, and CNNs trained from scratch for image classification (the handwriting model here hits 98% test accuracy, running fully in your browser)." },
+  { k: ["production", "deploy", "deployed", "mlops", "serve", "ci", "cd"],
+    a: "He can take models to production end to end: training pipelines, MLflow experiment tracking, FastAPI serving, Docker packaging, CI/CD on GitHub Actions, cloud deployment, plus logging and monitoring so things stay stable." },
   { k: ["stack", "tools", "technologies", "language", "skills", "know"],
-    a: "ML/DS: Python, PyTorch, TensorFlow/TF.js, scikit-learn, pandas. Data: SQL, Power BI, ETL pipelines. Software: TypeScript, FastAPI, Docker, Git, CI/CD. He also has a strong hardware/embedded foundation." },
-  { k: ["electronics", "hardware", "embedded", "switch", "background", "tinyml"],
-    a: "His foundation is high-tech electronics, embedded firmware, sensors, low-power and analog design. That hardware intuition is an asset for edge AI and TinyML, bridging models and the devices they run on." },
-  { k: ["data", "analytics", "powerbi", "power bi", "databricks", "sql"],
+    a: "ML/AI: Python, PyTorch, TensorFlow/TF.js, scikit-learn. Data: SQL, Power BI, ETL pipelines, pandas. Systems: TypeScript, FastAPI, Docker, CI/CD, Azure. He also has a strong hardware/embedded foundation." },
+  { k: ["electronics", "hardware", "embedded", "switch", "background", "tinyml", "edge"],
+    a: "His foundation is high-tech electronics, embedded firmware, sensors, low-power and analog design. That systems intuition is an asset for edge AI and TinyML, bridging models and the devices they run on." },
+  { k: ["data", "analytics", "powerbi", "power bi", "etl", "sql"],
     a: "On the data side he works across the pipeline: ingestion and ETL, SQL, exploratory data analysis, dashboards in Power BI, and visualization with D3." },
-  { k: ["learn", "passion", "passionate", "motivat"],
-    a: "He's genuinely passionate about technology and learning, constantly building side projects (like this site) to go deeper into ML, data, and systems." },
+  { k: ["volunteer", "volunteering", "board", "treasurer", "community", "social"],
+    a: "Alongside engineering he stays active in the community: board treasurer of a photography association, board member for PR in the Fontys PROUD honours program, and volunteer work with VluchtelingenWerk Nederland and Stichting Vluchtelingen In De Knel supporting refugees." },
+  { k: ["learn", "passion", "passionate", "motivat", "curious"],
+    a: "He's genuinely passionate about technology and learning, and curious by default. He builds side projects (like this site) to go deeper into ML, data, and systems engineering." },
 ];
 
 function localAnswer(q: string): string {
   const t = q.toLowerCase();
   for (const e of KB) if (e.k.some((k) => t.includes(k))) return e.a;
-  return "Ask about his ML and computer-vision skills, data/analytics work, production/MLOps experience, or his electronics background. Try one of those.";
+  return "Ask about how he builds intelligent systems, his ML and computer-vision work, data and automation pipelines, production/MLOps, his electronics background, or his volunteering. Try one of those.";
 }
 
 export default function ChatBot() {

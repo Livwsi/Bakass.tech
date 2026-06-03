@@ -156,7 +156,7 @@ export default function DigitDemo() {
       <h3>Handwriting recognition</h3>
       <div className="mono">cnn-mnist, trained by me, 98% test acc</div>
 
-      <div className="stage">
+      <div className="draw-stage">
         <canvas ref={canvasRef} className="draw-canvas" />
         {status === "loading" && <span className="mono dim overlay">loading model,</span>}
         {status === "error" && <span className="mono dim overlay">⚠ {errMsg}</span>}
@@ -172,9 +172,9 @@ export default function DigitDemo() {
       </div>
 
       <style>{`
-        .draw-canvas { width: 100% !important; height: 100% !important; background: #000; touch-action: none; cursor: crosshair; display: block; }
-        .stage { position: relative; }
-        .stage .overlay { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.5); }
+        .draw-stage { position: relative; width: 100%; max-width: 300px; aspect-ratio: 1 / 1; margin: 6px 0 2px; }
+        .draw-canvas { display: block; width: 100%; height: 100%; background: #000; border-radius: var(--r); touch-action: none; cursor: crosshair; }
+        .draw-stage .overlay { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.5); border-radius: var(--r); }
         .clear { margin-left: 10px; background: transparent; border: 1px solid var(--ink-line); color: rgba(247,249,249,.6); font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: var(--r); cursor: pointer; }
         .clear:hover { color: var(--cream); }
       `}</style>

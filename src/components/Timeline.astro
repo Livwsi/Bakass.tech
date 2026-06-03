@@ -25,7 +25,7 @@ const work: Company[] = [
 ];
 
 const education: Edu[] = [
-  { org: "Fontys University of Applied Sciences", title: "BEng, Electrical & Electronics Engineering", period: "2021 to 2025",
+  { org: "Fontys University of Applied Sciences", title: "BSc, Electrical & Electronics Engineering", period: "2021 to 2025",
     note: "Specialisation: Electronic Systems. Thesis: machine learning for hand-gesture recognition using a PPG sensor." },
   { org: "Université Ibn Zohr", title: "Associate's degree, Physics", period: "2019 to 2021" },
   { org: "Sidi Ou Sidi High School", title: "High School Diploma, Physics", period: "2019" },
@@ -36,6 +36,14 @@ const volunteering: Vol[] = [
   { title: "Board Member, Public Relations", org: "Fontys PROUD Honours program", period: "Nov 2022 to Sep 2024" },
   { title: "Volunteer", org: "VluchtelingenWerk Nederland", period: "Apr 2025 to Present" },
   { title: "Volunteer", org: "Stichting Vluchtelingen In De Knel", period: "Apr 2025 to Present" },
+];
+
+const languages: { name: string; level: string }[] = [
+  { name: "Arabic", level: "Native" },
+  { name: "Tamazight", level: "Native" },
+  { name: "English", level: "Professional" },
+  { name: "French", level: "Limited working" },
+  { name: "Dutch", level: "Elementary" },
 ];
 ---
 
@@ -89,12 +97,30 @@ const volunteering: Vol[] = [
       </div>
     ))}
   </div>
+
+  <!-- LANGUAGES -->
+  <div class="tl-group">
+    <div class="tl-head">Languages</div>
+    <div class="langs">
+      {languages.map((l) => (
+        <div class="lang">
+          <span class="lang-name">{l.name}</span>
+          <span class="lang-level">{l.level}</span>
+        </div>
+      ))}
+    </div>
+  </div>
 </div>
 
 <style>
   .tl { border-top: 1px solid var(--line-2); margin-top: 46px; display: grid; grid-template-columns: 1fr 1fr; }
+  .langs { display: flex; flex-direction: column; }
+  .lang { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .lang:last-child { border-bottom: none; }
+  .lang-name { font-size: 14px; font-weight: 500; }
+  .lang-level { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
   .tl-group { padding: 30px 32px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .tl-group:first-child { grid-row: span 2; border-right: 1px solid var(--line); }
+  .tl-group:nth-child(2n) { border-right: none; }
   .tl-head { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); margin-bottom: 20px; }
 
   .company { margin-bottom: 20px; }

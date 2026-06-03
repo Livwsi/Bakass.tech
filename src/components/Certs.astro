@@ -1,23 +1,38 @@
 ---
-// Certificates. EDIT the array below with your real certificates.
-// For each: set issuer, title, year, an optional credential URL, and
-// optionally an image filename you drop into /public/certs/.
-// If `img` is omitted, a clean monogram tile is shown instead.
-
+// Certificates with verifiable credential IDs. ML / data / AI listed first.
 interface Cert {
   title: string;
   issuer: string;
   year: string;
+  credId?: string;
   url?: string;
-  img?: string; // e.g. "deeplearning-ai.png" → /public/certs/deeplearning-ai.png
+  img?: string; // optional logo in /public/certs/
 }
 
 const certs: Cert[] = [
-  { title: "Exploratory Data Analysis for Machine Learning", issuer: "IBM", year: "2024" },
-  { title: "Simulation of Power Electronics Circuits using Python", issuer: "Online course", year: "2024" },
-  { title: "Basics of Power Electronics", issuer: "Online course", year: "2023" },
-  { title: "Creative Thinking and Innovation", issuer: "Certificate", year: "2023" },
-]
+  { title: "Exploratory Data Analysis for Machine Learning", issuer: "IBM", year: "Mar 2025",
+    credId: "RWNEKB6Q3H21", url: "https://www.coursera.org/account/accomplishments/verify/RWNEKB6Q3H21" },
+  { title: "Machine Learning A-Z: AI, Python & R", issuer: "Udemy", year: "Jul 2023",
+    credId: "UC-12819cd7-4213-4e3c-a666-b19eef8f1eee", url: "https://www.udemy.com/certificate/UC-12819cd7-4213-4e3c-a666-b19eef8f1eee/" },
+  { title: "100 Days of Code: The Complete Python Pro Bootcamp", issuer: "Udemy", year: "Jul 2023",
+    credId: "UC-99597896-5877-4926-984e-fcfb94ebd9ed", url: "https://www.udemy.com/certificate/UC-99597896-5877-4926-984e-fcfb94ebd9ed/" },
+  { title: "Embedded Systems Design with Xilinx FPGA and VIVADO", issuer: "Udemy", year: "Dec 2022",
+    credId: "UC-7e0ee730-6e31-4c26-b774-7d8d1dd42b82", url: "https://www.udemy.com/certificate/UC-7e0ee730-6e31-4c26-b774-7d8d1dd42b82/" },
+  { title: "Digital Circuit Design using FPGA and VHDL Programming", issuer: "Udemy", year: "Dec 2022",
+    credId: "UC-750734f3-6152-4b00-8984-53bca6f4325f", url: "https://www.udemy.com/certificate/UC-750734f3-6152-4b00-8984-53bca6f4325f/" },
+  { title: "Simulation of Power Electronics Circuits using Python", issuer: "Udemy", year: "Nov 2023",
+    credId: "UC-90e8ab3a-83e1-4ad7-a963-d206d4cdc03f", url: "https://www.udemy.com/certificate/UC-90e8ab3a-83e1-4ad7-a963-d206d4cdc03f/" },
+  { title: "Basics of Power Electronics", issuer: "Udemy", year: "Nov 2023",
+    credId: "UC-1e79bce9-3f8d-41b1-8039-3cf33597e132", url: "https://www.udemy.com/certificate/UC-1e79bce9-3f8d-41b1-8039-3cf33597e132/" },
+  { title: "Creative Thinking and Innovation", issuer: "New Heroes", year: "Feb 2022" },
+];
+
+const mono = (issuer: string) => {
+  const words = issuer.split(/\s+/);
+  return words.length > 1
+    ? words.map((w) => w[0]).slice(0, 2).join("")
+    : issuer.replace(/[^A-Za-z]/g, "").slice(0, 2);
+};
 ---
 
 <div class="certs">
@@ -27,12 +42,13 @@ const certs: Cert[] = [
         {c.img ? (
           <img src={`/certs/${c.img}`} alt={c.issuer} loading="lazy" />
         ) : (
-          <span class="cert-mono">{c.issuer.split(/[\s/.]+/).map((w) => w[0]).slice(0, 2).join("")}</span>
+          <span class="cert-mono">{mono(c.issuer)}</span>
         )}
       </div>
       <div class="cert-body">
         <div class="cert-title">{c.title}</div>
         <div class="cert-meta">{c.issuer} · {c.year}</div>
+        {c.credId && <div class="cert-id">ID {c.credId}</div>}
       </div>
       <span class="cert-arrow">{c.url ? "↗" : ""}</span>
     </a>
@@ -40,43 +56,29 @@ const certs: Cert[] = [
 </div>
 
 <style>
-  .certs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    border-top: 1px solid var(--line-2);
-    margin-top: 46px;
-  }
+  .certs { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line-2); margin-top: 46px; }
   .cert {
-    display: flex; align-items: center; gap: 16px;
-    padding: 24px 32px;
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 22px 32px;
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-    text-decoration: none;
-    color: var(--ink);
-    transition: background .2s;
+    text-decoration: none; color: var(--ink); transition: background .2s;
   }
   .cert:nth-child(2n) { border-right: none; }
   .cert:hover { background: var(--cream-2); }
   .cert-badge {
-    width: 48px; height: 48px; flex-shrink: 0;
-    border: 1px solid var(--line);
-    border-radius: var(--r);
-    background: var(--cream);
-    display: grid; place-items: center;
-    overflow: hidden;
+    width: 44px; height: 44px; flex-shrink: 0; margin-top: 2px;
+    border: 1px solid var(--line); border-radius: var(--r);
+    background: var(--cream); display: grid; place-items: center; overflow: hidden;
   }
   .cert-badge img { width: 100%; height: 100%; object-fit: contain; }
   .cert-mono {
-    font-family: var(--mono); font-weight: 600; font-size: 16px;
-    background: var(--flame); -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-family: var(--mono); font-weight: 700; font-size: 15px;
+    background: var(--flame); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .cert-title { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
-  .cert-meta { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+  .cert-title { font-size: 15px; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+  .cert-meta { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+  .cert-id { font-family: var(--mono); font-size: 10px; color: var(--ink-soft); opacity: .7; margin-top: 3px; word-break: break-all; }
   .cert-arrow { margin-left: auto; color: var(--ink-soft); }
-
-  @media (max-width: 760px) {
-    .certs { grid-template-columns: 1fr; }
-    .cert { border-right: none; }
-  }
+  @media (max-width: 760px) { .certs { grid-template-columns: 1fr; } .cert { border-right: none; } }
 </style>
