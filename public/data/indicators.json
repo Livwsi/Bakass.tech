@@ -1,374 +1,734 @@
 {
-  "_note": "Seed data. pipeline/fetch_owid.py overwrites this with live OWID values.",
-  "refreshed_at": "2026-01-01T00:00:00+00:00",
+  "refreshed_at": "2026-06-08T10:53:56.079077+00:00",
   "country": "Netherlands",
+  "source": "Our World in Data (CC-BY)",
   "indicators": {
     "co2": {
       "label": "CO\u2082 per capita",
       "unit": "t/person",
-      "insight": "Down ~34% from the 2000s peak \u2014 coal-to-gas then renewables. Still above the EU average.",
+      "insight": "Down ~34% from the 2000s peak. Still above the EU average.",
       "series": [
         {
           "year": 1990,
-          "value": 11.0
+          "value": 10.847
+        },
+        {
+          "year": 1991,
+          "value": 11.314
+        },
+        {
+          "year": 1992,
+          "value": 11.212
+        },
+        {
+          "year": 1993,
+          "value": 11.123
+        },
+        {
+          "year": 1994,
+          "value": 11.104
         },
         {
           "year": 1995,
-          "value": 11.4
+          "value": 11.146
+        },
+        {
+          "year": 1996,
+          "value": 11.671
+        },
+        {
+          "year": 1997,
+          "value": 11.159
+        },
+        {
+          "year": 1998,
+          "value": 11.145
+        },
+        {
+          "year": 1999,
+          "value": 10.731
         },
         {
           "year": 2000,
-          "value": 11.5
+          "value": 10.72
+        },
+        {
+          "year": 2001,
+          "value": 10.966
+        },
+        {
+          "year": 2002,
+          "value": 10.851
+        },
+        {
+          "year": 2003,
+          "value": 11.008
+        },
+        {
+          "year": 2004,
+          "value": 11.086
         },
         {
           "year": 2005,
-          "value": 11.2
+          "value": 10.818
+        },
+        {
+          "year": 2006,
+          "value": 10.506
+        },
+        {
+          "year": 2007,
+          "value": 10.467
+        },
+        {
+          "year": 2008,
+          "value": 10.598
+        },
+        {
+          "year": 2009,
+          "value": 10.215
         },
         {
           "year": 2010,
-          "value": 10.9
+          "value": 10.88
+        },
+        {
+          "year": 2011,
+          "value": 10.05
+        },
+        {
+          "year": 2012,
+          "value": 9.799
+        },
+        {
+          "year": 2013,
+          "value": 9.72
+        },
+        {
+          "year": 2014,
+          "value": 9.249
         },
         {
           "year": 2015,
-          "value": 9.7
+          "value": 9.584
+        },
+        {
+          "year": 2016,
+          "value": 9.579
+        },
+        {
+          "year": 2017,
+          "value": 9.373
         },
         {
           "year": 2018,
-          "value": 9.3
+          "value": 9.085
+        },
+        {
+          "year": 2019,
+          "value": 8.709
         },
         {
           "year": 2020,
-          "value": 8.0
+          "value": 7.766
+        },
+        {
+          "year": 2021,
+          "value": 7.89
         },
         {
           "year": 2022,
-          "value": 7.6
+          "value": 7.121
+        },
+        {
+          "year": 2023,
+          "value": 6.468
+        },
+        {
+          "year": 2024,
+          "value": 6.297
         }
       ]
     },
     "population": {
       "label": "Population",
       "unit": "millions",
-      "insight": "Steady growth from ~15M in 1990 to ~17.8M, driven largely by migration and rising life expectancy.",
+      "insight": "Steady growth from ~15M in 1990 to ~17.8M.",
       "series": [
         {
           "year": 1990,
-          "value": 14.95
+          "value": 15.031
+        },
+        {
+          "year": 1991,
+          "value": 15.155
+        },
+        {
+          "year": 1992,
+          "value": 15.277
+        },
+        {
+          "year": 1993,
+          "value": 15.39
+        },
+        {
+          "year": 1994,
+          "value": 15.485
         },
         {
           "year": 1995,
-          "value": 15.46
+          "value": 15.565
+        },
+        {
+          "year": 1996,
+          "value": 15.64
+        },
+        {
+          "year": 1997,
+          "value": 15.724
+        },
+        {
+          "year": 1998,
+          "value": 15.827
+        },
+        {
+          "year": 1999,
+          "value": 15.94
         },
         {
           "year": 2000,
-          "value": 15.93
+          "value": 16.059
+        },
+        {
+          "year": 2001,
+          "value": 16.183
+        },
+        {
+          "year": 2002,
+          "value": 16.288
+        },
+        {
+          "year": 2003,
+          "value": 16.367
+        },
+        {
+          "year": 2004,
+          "value": 16.426
         },
         {
           "year": 2005,
-          "value": 16.32
+          "value": 16.466
+        },
+        {
+          "year": 2006,
+          "value": 16.494
+        },
+        {
+          "year": 2007,
+          "value": 16.531
+        },
+        {
+          "year": 2008,
+          "value": 16.597
+        },
+        {
+          "year": 2009,
+          "value": 16.684
         },
         {
           "year": 2010,
-          "value": 16.62
+          "value": 16.771
+        },
+        {
+          "year": 2011,
+          "value": 16.851
+        },
+        {
+          "year": 2012,
+          "value": 16.915
+        },
+        {
+          "year": 2013,
+          "value": 16.967
+        },
+        {
+          "year": 2014,
+          "value": 17.03
         },
         {
           "year": 2015,
-          "value": 16.94
+          "value": 17.107
+        },
+        {
+          "year": 2016,
+          "value": 17.205
+        },
+        {
+          "year": 2017,
+          "value": 17.315
         },
         {
           "year": 2018,
-          "value": 17.23
+          "value": 17.421
+        },
+        {
+          "year": 2019,
+          "value": 17.538
         },
         {
           "year": 2020,
-          "value": 17.44
+          "value": 17.637
+        },
+        {
+          "year": 2021,
+          "value": 17.731
         },
         {
           "year": 2022,
-          "value": 17.7
+          "value": 17.904
+        },
+        {
+          "year": 2023,
+          "value": 18.093
         }
       ]
     },
     "gdp": {
       "label": "GDP per capita",
       "unit": "$ (PPP)",
-      "insight": "Among the highest in the EU; resilient through 2008 and 2020 shocks, recovering above $60k.",
+      "insight": "Among the highest in the EU; recovering above $60k.",
       "series": [
         {
           "year": 1990,
-          "value": 32000
+          "value": 43128.312
+        },
+        {
+          "year": 1991,
+          "value": 43833.484
+        },
+        {
+          "year": 1992,
+          "value": 44245.527
+        },
+        {
+          "year": 1993,
+          "value": 44490.758
+        },
+        {
+          "year": 1994,
+          "value": 45532.805
         },
         {
           "year": 1995,
-          "value": 36000
+          "value": 46720.29
+        },
+        {
+          "year": 1996,
+          "value": 48095.965
+        },
+        {
+          "year": 1997,
+          "value": 49881.875
+        },
+        {
+          "year": 1998,
+          "value": 51879.38
+        },
+        {
+          "year": 1999,
+          "value": 54134.363
         },
         {
           "year": 2000,
-          "value": 44000
+          "value": 56016.87
+        },
+        {
+          "year": 2001,
+          "value": 56887.434
+        },
+        {
+          "year": 2002,
+          "value": 56664.414
+        },
+        {
+          "year": 2003,
+          "value": 56452.867
+        },
+        {
+          "year": 2004,
+          "value": 57391.363
         },
         {
           "year": 2005,
-          "value": 48000
+          "value": 58422.01
+        },
+        {
+          "year": 2006,
+          "value": 60391.543
+        },
+        {
+          "year": 2007,
+          "value": 62601.62
+        },
+        {
+          "year": 2008,
+          "value": 63678.402
+        },
+        {
+          "year": 2009,
+          "value": 61029.73
         },
         {
           "year": 2010,
-          "value": 52000
+          "value": 61518.555
+        },
+        {
+          "year": 2011,
+          "value": 62318.14
+        },
+        {
+          "year": 2012,
+          "value": 61480.812
+        },
+        {
+          "year": 2013,
+          "value": 61281.29
+        },
+        {
+          "year": 2014,
+          "value": 62045.855
         },
         {
           "year": 2015,
-          "value": 54000
+          "value": 63081.395
+        },
+        {
+          "year": 2016,
+          "value": 64267.74
+        },
+        {
+          "year": 2017,
+          "value": 65666.0
         },
         {
           "year": 2018,
-          "value": 58000
+          "value": 66758.266
+        },
+        {
+          "year": 2019,
+          "value": 67847.85
         },
         {
           "year": 2020,
-          "value": 57000
+          "value": 64862.19
+        },
+        {
+          "year": 2021,
+          "value": 68573.56
         },
         {
           "year": 2022,
-          "value": 63000
+          "value": 71324.04
+        },
+        {
+          "year": 2023,
+          "value": 70198.93
+        },
+        {
+          "year": 2024,
+          "value": 70498.88
         }
       ]
     },
     "life": {
       "label": "Life expectancy",
       "unit": "years",
-      "insight": "Climbed from ~77 to ~82 years; a small dip around 2020 reflects the pandemic.",
+      "insight": "Climbed from ~77 to ~82 years.",
       "series": [
         {
           "year": 1990,
-          "value": 77.0
+          "value": 77.012
+        },
+        {
+          "year": 1991,
+          "value": 77.162
+        },
+        {
+          "year": 1992,
+          "value": 77.365
+        },
+        {
+          "year": 1993,
+          "value": 77.041
+        },
+        {
+          "year": 1994,
+          "value": 77.518
         },
         {
           "year": 1995,
-          "value": 77.5
+          "value": 77.551
+        },
+        {
+          "year": 1996,
+          "value": 77.556
+        },
+        {
+          "year": 1997,
+          "value": 77.931
+        },
+        {
+          "year": 1998,
+          "value": 78.004
+        },
+        {
+          "year": 1999,
+          "value": 77.968
         },
         {
           "year": 2000,
-          "value": 78.0
+          "value": 78.13
+        },
+        {
+          "year": 2001,
+          "value": 78.338
+        },
+        {
+          "year": 2002,
+          "value": 78.412
+        },
+        {
+          "year": 2003,
+          "value": 78.665
+        },
+        {
+          "year": 2004,
+          "value": 79.239
         },
         {
           "year": 2005,
-          "value": 79.4
+          "value": 79.488
+        },
+        {
+          "year": 2006,
+          "value": 79.847
+        },
+        {
+          "year": 2007,
+          "value": 80.255
+        },
+        {
+          "year": 2008,
+          "value": 80.387
+        },
+        {
+          "year": 2009,
+          "value": 80.671
         },
         {
           "year": 2010,
-          "value": 80.7
+          "value": 80.829
+        },
+        {
+          "year": 2011,
+          "value": 81.11
+        },
+        {
+          "year": 2012,
+          "value": 81.059
+        },
+        {
+          "year": 2013,
+          "value": 81.301
+        },
+        {
+          "year": 2014,
+          "value": 81.65
         },
         {
           "year": 2015,
-          "value": 81.6
+          "value": 81.49
+        },
+        {
+          "year": 2016,
+          "value": 81.555
+        },
+        {
+          "year": 2017,
+          "value": 81.737
         },
         {
           "year": 2018,
-          "value": 81.9
+          "value": 81.781
+        },
+        {
+          "year": 2019,
+          "value": 82.053
         },
         {
           "year": 2020,
-          "value": 81.5
+          "value": 81.393
+        },
+        {
+          "year": 2021,
+          "value": 81.356
         },
         {
           "year": 2022,
-          "value": 81.7
+          "value": 81.912
+        },
+        {
+          "year": 2023,
+          "value": 82.158
         }
       ]
     },
     "renewables": {
       "label": "Renewable energy",
-      "unit": "% of electricity",
-      "insight": "Late but steep: from low single digits to ~40% as wind and solar scaled through the 2010s-2020s.",
+      "unit": "% of energy",
+      "insight": "Late but steep as wind and solar scaled.",
       "series": [
         {
           "year": 1990,
-          "value": 1.4
+          "value": 0.273
+        },
+        {
+          "year": 1991,
+          "value": 0.31
+        },
+        {
+          "year": 1992,
+          "value": 0.33
+        },
+        {
+          "year": 1993,
+          "value": 0.363
+        },
+        {
+          "year": 1994,
+          "value": 0.414
         },
         {
           "year": 1995,
-          "value": 2.0
+          "value": 0.442
+        },
+        {
+          "year": 1996,
+          "value": 0.546
+        },
+        {
+          "year": 1997,
+          "value": 0.616
+        },
+        {
+          "year": 1998,
+          "value": 0.703
+        },
+        {
+          "year": 1999,
+          "value": 0.77
         },
         {
           "year": 2000,
-          "value": 3.9
+          "value": 0.895
+        },
+        {
+          "year": 2001,
+          "value": 0.958
+        },
+        {
+          "year": 2002,
+          "value": 1.15
+        },
+        {
+          "year": 2003,
+          "value": 1.124
+        },
+        {
+          "year": 2004,
+          "value": 1.452
         },
         {
           "year": 2005,
-          "value": 6.3
+          "value": 2.013
+        },
+        {
+          "year": 2006,
+          "value": 2.24
+        },
+        {
+          "year": 2007,
+          "value": 2.341
+        },
+        {
+          "year": 2008,
+          "value": 2.817
+        },
+        {
+          "year": 2009,
+          "value": 3.323
         },
         {
           "year": 2010,
-          "value": 9.6
+          "value": 3.039
+        },
+        {
+          "year": 2011,
+          "value": 3.546
+        },
+        {
+          "year": 2012,
+          "value": 3.67
+        },
+        {
+          "year": 2013,
+          "value": 3.61
+        },
+        {
+          "year": 2014,
+          "value": 3.651
         },
         {
           "year": 2015,
-          "value": 11.1
+          "value": 4.031
+        },
+        {
+          "year": 2016,
+          "value": 4.139
+        },
+        {
+          "year": 2017,
+          "value": 4.795
         },
         {
           "year": 2018,
-          "value": 15.1
+          "value": 5.505
+        },
+        {
+          "year": 2019,
+          "value": 6.709
         },
         {
           "year": 2020,
-          "value": 26.4
+          "value": 9.735
+        },
+        {
+          "year": 2021,
+          "value": 11.483
         },
         {
           "year": 2022,
-          "value": 40.0
+          "value": 14.417
+        },
+        {
+          "year": 2023,
+          "value": 16.63
+        },
+        {
+          "year": 2024,
+          "value": 18.119
         }
       ]
-    }
-  },
-  "compare": {
-    "co2": {
-      "Netherlands": 7.6,
-      "Belgium": 7.7,
-      "Germany": 7.9,
-      "France": 4.5,
-      "United Kingdom": 4.7,
-      "Ireland": 7.0,
-      "Denmark": 4.5,
-      "Norway": 7.0,
-      "Sweden": 3.6,
-      "Finland": 6.8,
-      "Poland": 8.0,
-      "Czechia": 8.5,
-      "Austria": 6.8,
-      "Switzerland": 4.0,
-      "Italy": 5.5,
-      "Spain": 5.2,
-      "Portugal": 4.0,
-      "Luxembourg": 11.8,
-      "Slovakia": 5.5,
-      "Slovenia": 6.0,
-      "Hungary": 4.5,
-      "Croatia": 4.3,
-      "Romania": 3.8,
-      "Bulgaria": 6.5,
-      "Greece": 5.8,
-      "Estonia": 9.0,
-      "Latvia": 3.5,
-      "Lithuania": 4.3
-    },
-    "population": {
-      "Netherlands": 17.7,
-      "Belgium": 11.6,
-      "Germany": 83.2,
-      "France": 67.8,
-      "United Kingdom": 67.0,
-      "Ireland": 5.0,
-      "Denmark": 5.9,
-      "Norway": 5.4,
-      "Sweden": 10.4,
-      "Finland": 5.5,
-      "Poland": 37.8,
-      "Czechia": 10.5,
-      "Austria": 8.9,
-      "Switzerland": 8.7,
-      "Italy": 59.0,
-      "Spain": 47.4,
-      "Portugal": 10.3,
-      "Luxembourg": 0.64,
-      "Slovakia": 5.4,
-      "Slovenia": 2.1,
-      "Hungary": 9.7,
-      "Croatia": 3.9,
-      "Romania": 19.0,
-      "Bulgaria": 6.9,
-      "Greece": 10.4,
-      "Estonia": 1.3,
-      "Latvia": 1.9,
-      "Lithuania": 2.8
-    },
-    "gdp": {
-      "Netherlands": 63000,
-      "Belgium": 60000,
-      "Germany": 58000,
-      "France": 50000,
-      "United Kingdom": 49000,
-      "Ireland": 102000,
-      "Denmark": 67000,
-      "Norway": 78000,
-      "Sweden": 60000,
-      "Finland": 53000,
-      "Poland": 41000,
-      "Czechia": 46000,
-      "Austria": 62000,
-      "Switzerland": 78000,
-      "Italy": 48000,
-      "Spain": 42000,
-      "Portugal": 39000,
-      "Luxembourg": 120000,
-      "Slovakia": 35000,
-      "Slovenia": 45000,
-      "Hungary": 38000,
-      "Croatia": 36000,
-      "Romania": 36000,
-      "Bulgaria": 29000,
-      "Greece": 33000,
-      "Estonia": 42000,
-      "Latvia": 36000,
-      "Lithuania": 43000
-    },
-    "life": {
-      "Netherlands": 81.7,
-      "Belgium": 81.9,
-      "Germany": 80.6,
-      "France": 82.5,
-      "United Kingdom": 80.9,
-      "Ireland": 82.4,
-      "Denmark": 81.4,
-      "Norway": 83.2,
-      "Sweden": 83.0,
-      "Finland": 81.9,
-      "Poland": 76.5,
-      "Czechia": 79.1,
-      "Austria": 81.1,
-      "Switzerland": 83.9,
-      "Italy": 82.8,
-      "Spain": 83.2,
-      "Portugal": 81.1,
-      "Luxembourg": 82.7,
-      "Slovakia": 77.0,
-      "Slovenia": 80.7,
-      "Hungary": 74.5,
-      "Croatia": 78.0,
-      "Romania": 75.3,
-      "Bulgaria": 74.3,
-      "Greece": 80.7,
-      "Estonia": 78.0,
-      "Latvia": 74.5,
-      "Lithuania": 75.7
-    },
-    "renewables": {
-      "Netherlands": 40.0,
-      "Belgium": 25.0,
-      "Germany": 44.0,
-      "France": 25.0,
-      "United Kingdom": 42.0,
-      "Ireland": 37.0,
-      "Denmark": 80.0,
-      "Norway": 98.0,
-      "Sweden": 70.0,
-      "Finland": 53.0,
-      "Poland": 21.0,
-      "Czechia": 15.0,
-      "Austria": 78.0,
-      "Switzerland": 62.0,
-      "Italy": 36.0,
-      "Spain": 42.0,
-      "Portugal": 58.0,
-      "Luxembourg": 37.0,
-      "Slovakia": 23.0,
-      "Slovenia": 35.0,
-      "Hungary": 14.0,
-      "Croatia": 53.0,
-      "Romania": 43.0,
-      "Bulgaria": 23.0,
-      "Greece": 42.0,
-      "Estonia": 34.0,
-      "Latvia": 53.0,
-      "Lithuania": 40.0
     }
   }
 }
