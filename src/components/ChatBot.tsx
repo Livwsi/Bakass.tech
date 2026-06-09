@@ -17,28 +17,34 @@ interface Message { role: "user" | "assistant"; content: string; }
 const WORKER_URL = import.meta.env.PUBLIC_CHAT_API ?? "";
 
 const SUGGESTED = [
-  "What's his experience with computer vision?",
-  "Has he deployed models to production?",
+  "Has he deployed an LLM in production?",
+  "Tell me about his TinyML thesis",
   "What's his stack?",
-  "Why switch from electronics?",
+  "What did he build in hardware?",
 ];
 
 // ---- local fallback knowledge base ----
 const KB: { k: string[]; a: string }[] = [
+  { k: ["llm", "chatbot", "deepseek", "gpt", "generative", "genai", "rag"],
+    a: "He deployed an LLM (DeepSeek-R1) as a production chatbot for factory operators at a high-tech electronics manufacturer, with n8n workflow automation around it for ticketing and process orchestration. He also built the RAG-style assistant you're talking to now." },
   { k: ["system", "build", "intelligent", "automation", "automate", "pipeline", "end to end", "end-to-end"],
-    a: "He builds intelligent systems end to end: data ingestion and ETL, model training and evaluation, then deployment as automated, monitored services. The goal is always a system that runs reliably in production, not a notebook that works once." },
-  { k: ["computer vision", "cv", "vision", "gesture", "image", "detection"],
-    a: "He builds computer-vision systems: real-time hand-gesture recognition with MediaPipe, object detection, and CNNs trained from scratch for image classification (the handwriting model here hits 98% test accuracy, running fully in your browser)." },
-  { k: ["production", "deploy", "deployed", "mlops", "serve", "ci", "cd"],
-    a: "He can take models to production end to end: training pipelines, MLflow experiment tracking, FastAPI serving, Docker packaging, CI/CD on GitHub Actions, cloud deployment, plus logging and monitoring so things stay stable." },
+    a: "He builds intelligent systems end to end: data ingestion and ETL, model training and evaluation, then deployment as automated, monitored services. Recent examples: a production LLM assistant in a live factory, and a PCBA test-analytics pipeline with failure prediction." },
+  { k: ["data", "analytics", "powerbi", "power bi", "etl", "sql", "predict"],
+    a: "He built a Python analytics pipeline that pulls measurement data from production servers, finds patterns across large PCBA test datasets, and feeds prediction models, cutting failure-analysis time significantly. Tools: Python, pandas, SQL, Power BI, PySpark." },
+  { k: ["tinyml", "edge", "thesis", "graduation", "imu", "movement"],
+    a: "His graduation project (BSc with honours) was a TinyML system: raw IMU sensor data through preprocessing, feature extraction, and a CNN, optimized for low-latency on-device inference on a Raspberry Pi." },
+  { k: ["drone", "embedded", "firmware", "freertos", "esp32", "hardware", "electronics", "background"],
+    a: "He designed a custom drone platform from the ground up: hardware with BMS and power electronics, FreeRTOS firmware on ESP32-S3 with sensor fusion, ML-assisted PID tuning, and onboard OpenCV vision. His foundation is high-tech electronics, which is why his AI work ships as working systems." },
+  { k: ["computer vision", "cv", "vision", "gesture", "image", "detection", "opencv"],
+    a: "He builds computer-vision systems: real-time pipelines with OpenCV on embedded hardware, hand-gesture recognition with MediaPipe, and CNNs trained from scratch (the handwriting model here hits 98% test accuracy, running fully in your browser)." },
+  { k: ["production", "deploy", "deployed", "mlops", "serve", "ci", "cd", "docker"],
+    a: "He takes models to production end to end: training pipelines, MLflow experiment tracking, FastAPI serving, Docker packaging, CI/CD on GitHub Actions, Azure, plus logging and monitoring. Two of his systems run in production today: an LLM assistant and a test-analytics pipeline." },
   { k: ["stack", "tools", "technologies", "language", "skills", "know"],
-    a: "ML/AI: Python, PyTorch, TensorFlow/TF.js, scikit-learn. Data: SQL, Power BI, ETL pipelines, pandas. Systems: TypeScript, FastAPI, Docker, CI/CD, Azure. He also has a strong hardware/embedded foundation." },
-  { k: ["electronics", "hardware", "embedded", "switch", "background", "tinyml", "edge"],
-    a: "His foundation is high-tech electronics, embedded firmware, sensors, low-power and analog design. That systems intuition is an asset for edge AI and TinyML, bridging models and the devices they run on." },
-  { k: ["data", "analytics", "powerbi", "power bi", "etl", "sql"],
-    a: "On the data side he works across the pipeline: ingestion and ETL, SQL, exploratory data analysis, dashboards in Power BI, and visualization with D3." },
+    a: "ML/AI: Python, PyTorch, TensorFlow/TF.js, scikit-learn, Hugging Face, LLM APIs. Data: SQL, pandas, PySpark, Power BI, ETL. Systems: FastAPI, Docker, CI/CD, n8n, Azure. Embedded: C/C++, ESP32/STM32, FreeRTOS, LabVIEW/TestStand, Altium." },
+  { k: ["test", "labview", "teststand", "pcba", "quality"],
+    a: "He develops automated test systems for complex PCBAs from leading high-tech OEMs: NI LabVIEW/TestStand tooling, PCBA design in Altium, and firmware in C++/Python, plus the data analytics on top of the test results." },
   { k: ["volunteer", "volunteering", "board", "treasurer", "community", "social"],
-    a: "Alongside engineering he stays active in the community: board treasurer of a photography association, board member for PR in the Fontys PROUD honours program, and volunteer work with VluchtelingenWerk Nederland and Stichting Vluchtelingen In De Knel supporting refugees." },
+    a: "He stays active in the community: treasurer of a photography association, PR board member in an honours program, volunteer work supporting refugees with two Dutch organizations, and vice president of an association in Morocco working on safe water, solar power, and education." },
   { k: ["learn", "passion", "passionate", "motivat", "curious"],
     a: "He's genuinely passionate about technology and learning, and curious by default. He builds side projects (like this site) to go deeper into ML, data, and systems engineering." },
 ];
@@ -46,7 +52,7 @@ const KB: { k: string[]; a: string }[] = [
 function localAnswer(q: string): string {
   const t = q.toLowerCase();
   for (const e of KB) if (e.k.some((k) => t.includes(k))) return e.a;
-  return "Ask about how he builds intelligent systems, his ML and computer-vision work, data and automation pipelines, production/MLOps, his electronics background, or his volunteering. Try one of those.";
+  return "Ask about his production LLM deployment, the PCBA analytics pipeline, his TinyML thesis, the drone platform, his stack, or his volunteering. Try one of those.";
 }
 
 export default function ChatBot() {

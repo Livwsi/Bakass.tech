@@ -14,22 +14,23 @@ type Domain = "Hardware" | "AI/ML" | "Software/Data";
 interface Skill { name: string; domain: Domain; level: number; tools: string[]; }
 
 const SKILLS: Skill[] = [
-  // Hardware / embedded
-  { name: "Embedded firmware (C/C++)", domain: "Hardware", level: 85, tools: ["STM32", "Arduino", "MPLAB"] },
-  { name: "PCB design & layout", domain: "Hardware", level: 80, tools: ["Altium", "JTAG", "DFM"] },
-  { name: "Sensor signal processing", domain: "Hardware", level: 82, tools: ["IMU", "PPG", "DSP"] },
-  { name: "TinyML / edge inference", domain: "Hardware", level: 78, tools: ["TFLite Micro", "quantization"] },
   // AI / ML
-  { name: "Deep learning", domain: "AI/ML", level: 85, tools: ["PyTorch", "Keras", "CNNs"] },
-  { name: "Computer vision", domain: "AI/ML", level: 82, tools: ["MediaPipe", "COCO-SSD", "OpenCV"] },
-  { name: "LLM apps & RAG", domain: "AI/ML", level: 80, tools: ["embeddings", "retrieval", "prompting"] },
-  { name: "Classical ML / DS", domain: "AI/ML", level: 83, tools: ["scikit-learn", "pandas", "XGBoost"] },
-  { name: "MLOps / experiment tracking", domain: "AI/ML", level: 78, tools: ["MLflow", "model registry"] },
+  { name: "LLM apps, RAG & agents", domain: "AI/ML", level: 84, tools: ["DeepSeek", "OpenAI/Anthropic APIs", "n8n"] },
+  { name: "Deep learning", domain: "AI/ML", level: 85, tools: ["PyTorch", "TensorFlow", "CNNs"] },
+  { name: "Computer vision", domain: "AI/ML", level: 82, tools: ["OpenCV", "MediaPipe", "TF.js"] },
+  { name: "TinyML / edge inference", domain: "AI/ML", level: 82, tools: ["TFLite Micro", "quantization"] },
+  { name: "Classical ML / DS", domain: "AI/ML", level: 83, tools: ["scikit-learn", "pandas", "stats"] },
+  { name: "MLOps / experiment tracking", domain: "AI/ML", level: 78, tools: ["MLflow", "Docker", "CI/CD"] },
   // Software / data
+  { name: "Data engineering & ETL", domain: "Software/Data", level: 80, tools: ["SQL", "PySpark", "Pydantic"] },
   { name: "Backend & APIs", domain: "Software/Data", level: 82, tools: ["Python", "FastAPI", "TypeScript"] },
-  { name: "CI/CD & DevOps", domain: "Software/Data", level: 80, tools: ["GitHub Actions", "Docker", "Azure"] },
-  { name: "Data engineering", domain: "Software/Data", level: 78, tools: ["SQL", "Pydantic", "ETL"] },
-  { name: "Data visualization", domain: "Software/Data", level: 80, tools: ["D3.js", "Power BI"] },
+  { name: "Workflow automation", domain: "Software/Data", level: 81, tools: ["n8n", "GitHub Actions", "Power Automate"] },
+  { name: "Data visualization", domain: "Software/Data", level: 80, tools: ["Power BI", "D3.js", "Matplotlib"] },
+  // Hardware / embedded
+  { name: "Embedded firmware (C/C++)", domain: "Hardware", level: 85, tools: ["ESP32", "STM32", "FreeRTOS"] },
+  { name: "Automated test systems", domain: "Hardware", level: 84, tools: ["LabVIEW", "TestStand", "Python"] },
+  { name: "PCB design & layout", domain: "Hardware", level: 80, tools: ["Altium", "KiCad", "DFM"] },
+  { name: "Analog & sensor design", domain: "Hardware", level: 82, tools: ["lock-in", "IMU", "DSP"] },
 ];
 
 const FILTERS: ("All" | Domain)[] = ["All", "Hardware", "AI/ML", "Software/Data"];

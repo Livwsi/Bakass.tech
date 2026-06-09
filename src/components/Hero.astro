@@ -14,13 +14,18 @@
         that run in production.
       </h1>
       <p class="sub">
-        Passionate about technology and learning. I design and ship AI and data systems end to end,
-        from data and models to deployment, automation, and monitoring, with systems intuition from
-        years in high-tech electronics. The demos below are live and run on your device.
+        Passionate about technology and learning. I ship AI and data systems end to end, from an
+        LLM assistant running in a live factory to TinyML on microcontrollers, backed by years of
+        high-tech electronics and embedded engineering. The demos below run live on your device.
       </p>
+      <div class="proof-row">
+        <span class="proof"><b>LLM</b> in production</span>
+        <span class="proof"><b>98%</b> CNN, in your browser</span>
+        <span class="proof"><b>TinyML</b> on the edge</span>
+      </div>
       <div class="cta-row">
-        <a href="#ask" class="btn btn-primary">Ask my AI →</a>
-        <a href="#cv-demos" class="btn btn-ghost">Try the demos</a>
+        <a href="#projects" class="btn btn-primary">See what I've shipped →</a>
+        <a href="#ask" class="btn btn-ghost">Ask my AI</a>
       </div>
     </div>
     <div class="hero-right">
@@ -127,6 +132,10 @@
     margin-bottom: 34px;
     animation: fade .8s ease .2s both;
   }
+  .proof-row { display: flex; gap: 0; border: 1px solid var(--line-2); border-radius: var(--r); width: fit-content; overflow: hidden; margin: 18px 0 4px; flex-wrap: wrap; }
+  .proof { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); padding: 8px 14px; border-right: 1px solid var(--line); }
+  .proof:last-child { border-right: none; }
+  .proof b { color: var(--c1); font-weight: 700; }
   .cta-row {
     display: flex;
     flex-wrap: wrap;

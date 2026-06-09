@@ -1,0 +1,138 @@
+---
+// Flagship project showcase, two clearly-labeled tracks:
+// AI / ML / Data and Embedded / Hardware. Impact-first wording, honest tags.
+// Client names are deliberately left off the public site.
+
+interface Project {
+  title: string;
+  impact: string;
+  tags: string[];
+  badge?: string; // small status chip, e.g. "in production"
+}
+
+const aiTrack: Project[] = [
+  {
+    title: "Production LLM assistant for factory operators",
+    impact: "Deployed an LLM (DeepSeek-R1) as a chatbot in a live electronics factory, with n8n workflow automation for ticketing and process orchestration around it.",
+    tags: ["LLM", "n8n", "Python", "Docker"],
+    badge: "in production",
+  },
+  {
+    title: "PCBA test analytics & failure prediction",
+    impact: "Built a Python pipeline that extracts and processes measurement data from production servers, surfaces patterns across large test datasets, and feeds prediction models, cutting failure-analysis time significantly.",
+    tags: ["Python", "pandas", "SQL", "analytics"],
+    badge: "in production",
+  },
+  {
+    title: "TinyML movement recognition, graduation project",
+    impact: "End-to-end pipeline from raw IMU sensor data to an optimized CNN running on-device: preprocessing, feature extraction, training, and low-latency edge inference on Raspberry Pi.",
+    tags: ["TensorFlow", "TinyML", "edge AI"],
+    badge: "thesis, honours",
+  },
+  {
+    title: "This site: ML running in your browser",
+    impact: "CNN trained from scratch (98% test accuracy) served with TF.js, a RAG-style CV assistant, and a weekly ETL pipeline on a CI cron, all deployed automatically from git.",
+    tags: ["TF.js", "RAG", "ETL", "CI/CD"],
+    badge: "live below",
+  },
+];
+
+const hwTrack: Project[] = [
+  {
+    title: "Custom drone platform, hardware to autonomy",
+    impact: "Designed the hardware and firmware from the ground up: BMS and power electronics, sensor fusion and real-time control on FreeRTOS/ESP32-S3, ML-assisted PID tuning, and onboard OpenCV vision.",
+    tags: ["ESP32-S3", "FreeRTOS", "OpenCV", "power"],
+  },
+  {
+    title: "Automated test systems for high-tech PCBAs",
+    impact: "Develop automated test tooling for complex boards from leading high-tech OEMs: NI LabVIEW/TestStand test development, PCBA design in Altium, and C++/Python firmware.",
+    tags: ["LabVIEW", "TestStand", "Altium", "C++"],
+    badge: "in production",
+  },
+  {
+    title: "Low-noise lock-in amplifier",
+    impact: "Full-cycle analog design for precision signal detection in low-SNR environments: filtering, phase-sensitive detection, and gain staging.",
+    tags: ["analog", "DSP", "precision"],
+  },
+  {
+    title: "FPGA, power & vision side projects",
+    impact: "HDMI video pipeline on a PYNQ-Z2 FPGA, a SIMO buck-boost converter with integrated LDOs, ESP32 face detection, and a solar-tracking USB-C PD station.",
+    tags: ["FPGA", "VHDL", "SIMO", "ESP32"],
+  },
+];
+---
+
+<div class="proj">
+  <div class="track">
+    <div class="track-head">
+      <span class="track-tag">TRACK A</span>
+      <h3>AI · ML · Data</h3>
+      <p>From models to monitored production systems.</p>
+    </div>
+    {aiTrack.map((p) => (
+      <div class="card">
+        <div class="card-top">
+          <h4>{p.title}</h4>
+          {p.badge && <span class="badge-chip">{p.badge}</span>}
+        </div>
+        <p class="impact">{p.impact}</p>
+        <div class="tags">{p.tags.map((t) => <span class="tag">{t}</span>)}</div>
+      </div>
+    ))}
+  </div>
+
+  <div class="track">
+    <div class="track-head">
+      <span class="track-tag alt">TRACK B</span>
+      <h3>Embedded · Hardware</h3>
+      <p>From schematic to firmware to a working system.</p>
+    </div>
+    {hwTrack.map((p) => (
+      <div class="card">
+        <div class="card-top">
+          <h4>{p.title}</h4>
+          {p.badge && <span class="badge-chip">{p.badge}</span>}
+        </div>
+        <p class="impact">{p.impact}</p>
+        <div class="tags">{p.tags.map((t) => <span class="tag">{t}</span>)}</div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .proj { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line-2); margin-top: 46px; }
+  .track { border-right: 1px solid var(--line); }
+  .track:last-child { border-right: none; }
+
+  .track-head { padding: 26px 32px 20px; border-bottom: 1px solid var(--line); }
+  .track-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    color: #04221d; background: var(--flame-v); padding: 3px 8px; border-radius: var(--r);
+  }
+  .track-tag.alt { background: var(--cream-2); color: var(--c1); border: 1px solid var(--line-2); }
+  .track-head h3 { font-size: 21px; letter-spacing: -.02em; margin-top: 12px; }
+  .track-head p { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+
+  .card { padding: 22px 32px; border-bottom: 1px solid var(--line); transition: background .2s; }
+  .card:last-child { border-bottom: none; }
+  .card:hover { background: var(--cream-2); }
+  .card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .card h4 { font-size: 15.5px; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+  .badge-chip {
+    flex-shrink: 0; font-family: var(--mono); font-size: 10px; color: var(--c1);
+    border: 1px solid var(--line-2); padding: 2px 7px; border-radius: var(--r); white-space: nowrap;
+  }
+  .impact { font-size: 13.5px; color: var(--ink-soft); margin-top: 8px; line-height: 1.55; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .tag {
+    font-family: var(--mono); font-size: 10.5px; color: var(--ink);
+    background: var(--cream-2); border: 1px solid var(--line); padding: 2px 8px; border-radius: var(--r);
+  }
+
+  @media (max-width: 860px) {
+    .proj { grid-template-columns: 1fr; }
+    .track { border-right: none; }
+    .track + .track .track-head { border-top: 1px solid var(--line-2); }
+  }
+</style>

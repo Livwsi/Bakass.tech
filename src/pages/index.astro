@@ -7,6 +7,7 @@ import Footer from "../components/Footer.astro";
 import ToolStack from "../components/ToolStack.astro";
 import Certs from "../components/Certs.astro";
 import Timeline from "../components/Timeline.astro";
+import Projects from "../components/Projects.astro";
 
 import ChatBot from "../components/ChatBot.tsx";
 import SkillMatrix from "../components/SkillMatrix.tsx";
@@ -35,8 +36,8 @@ import DataExplorer from "../components/DataExplorer.tsx";
           <p class="role">AI Engineer · Intelligent systems & automation · Eindhoven, NL</p>
           <p class="tagline">Passionate about technology and learning.</p>
           <div class="stack">
-            <span class="pill">Python</span><span class="pill">PyTorch</span><span class="pill">Power BI</span>
-            <span class="pill">RAG / LLM</span><span class="pill">CI/CD</span><span class="pill">Embedded</span>
+            <span class="pill">Python</span><span class="pill">LLM / RAG</span><span class="pill">TinyML</span>
+            <span class="pill">Power BI</span><span class="pill">CI/CD</span><span class="pill">Embedded</span>
           </div>
         </div>
         <ChatBot client:visible />
@@ -44,11 +45,23 @@ import DataExplorer from "../components/DataExplorer.tsx";
     </div>
   </section>
 
-  <!-- 02 - Tools (moved up) -->
+  <!-- 02 - Flagship projects -->
+  <section id="projects">
+    <div class="wrap">
+      <SectionHead
+        tag="// 02, SHIPPED"
+        title="What I've shipped"
+        desc="Two tracks, one mindset: intelligent systems that run in the real world. AI/ML/data on one side, embedded and hardware on the other."
+      />
+      <Projects />
+    </div>
+  </section>
+
+  <!-- 03 - Tools -->
   <section id="tools">
     <div class="wrap">
       <SectionHead
-        tag="// 02, STACK"
+        tag="// 03, STACK"
         title="Tools & technologies"
         desc="The kit I reach for, heavy on ML and data, grounded in software and hardware."
       />
@@ -60,7 +73,7 @@ import DataExplorer from "../components/DataExplorer.tsx";
   <section id="skills">
     <div class="wrap">
       <SectionHead
-        tag="// 03, CAPABILITIES"
+        tag="// 04, CAPABILITIES"
         title="What I can build"
         desc="Intelligent systems across two worlds: AI/ML/software and hardware/embedded. Filter by domain."
       />
@@ -72,7 +85,7 @@ import DataExplorer from "../components/DataExplorer.tsx";
   <section id="experience">
     <div class="wrap">
       <SectionHead
-        tag="// 04, EXPERIENCE"
+        tag="// 05, EXPERIENCE"
         title="Experience"
         desc="Work, education, and volunteering."
       />
@@ -84,7 +97,7 @@ import DataExplorer from "../components/DataExplorer.tsx";
   <section id="cv-demos">
     <div class="wrap">
       <SectionHead
-        tag="// 05, COMPUTER VISION"
+        tag="// 06, COMPUTER VISION"
         title="Three models, your device"
         desc="Intelligent systems running entirely in your browser. Client-side inference, WebGL-accelerated, nothing uploaded. The MNIST CNN was trained by me (98% test accuracy); gesture and detection use SOTA pre-trained models."
       />
@@ -100,7 +113,7 @@ import DataExplorer from "../components/DataExplorer.tsx";
   <section id="data">
     <div class="wrap">
       <SectionHead
-        tag="// 06, DATA SCIENCE"
+        tag="// 07, DATA SCIENCE"
         title="The Netherlands, by the numbers"
         desc="Multi-indicator explorer with three views: trend, heatmap, and an interactive map on a live OpenStreetMap basemap. ETL pipeline pulls OWID data on a CI cron, validates with Pydantic, serves clean JSON."
       />
@@ -112,7 +125,7 @@ import DataExplorer from "../components/DataExplorer.tsx";
   <section id="certs">
     <div class="wrap">
       <SectionHead
-        tag="// 07, CREDENTIALS"
+        tag="// 08, CREDENTIALS"
         title="Certificates"
         desc="Formal training and verified credentials."
       />
