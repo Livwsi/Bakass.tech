@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-06-08T10:53:56.079077+00:00",
+  "refreshed_at": "2026-06-09T21:55:42.443711+00:00",
   "country": "Netherlands",
   "source": "Our World in Data (CC-BY)",
   "indicators": {
@@ -293,153 +293,6 @@
         }
       ]
     },
-    "gdp": {
-      "label": "GDP per capita",
-      "unit": "$ (PPP)",
-      "insight": "Among the highest in the EU; recovering above $60k.",
-      "series": [
-        {
-          "year": 1990,
-          "value": 43128.312
-        },
-        {
-          "year": 1991,
-          "value": 43833.484
-        },
-        {
-          "year": 1992,
-          "value": 44245.527
-        },
-        {
-          "year": 1993,
-          "value": 44490.758
-        },
-        {
-          "year": 1994,
-          "value": 45532.805
-        },
-        {
-          "year": 1995,
-          "value": 46720.29
-        },
-        {
-          "year": 1996,
-          "value": 48095.965
-        },
-        {
-          "year": 1997,
-          "value": 49881.875
-        },
-        {
-          "year": 1998,
-          "value": 51879.38
-        },
-        {
-          "year": 1999,
-          "value": 54134.363
-        },
-        {
-          "year": 2000,
-          "value": 56016.87
-        },
-        {
-          "year": 2001,
-          "value": 56887.434
-        },
-        {
-          "year": 2002,
-          "value": 56664.414
-        },
-        {
-          "year": 2003,
-          "value": 56452.867
-        },
-        {
-          "year": 2004,
-          "value": 57391.363
-        },
-        {
-          "year": 2005,
-          "value": 58422.01
-        },
-        {
-          "year": 2006,
-          "value": 60391.543
-        },
-        {
-          "year": 2007,
-          "value": 62601.62
-        },
-        {
-          "year": 2008,
-          "value": 63678.402
-        },
-        {
-          "year": 2009,
-          "value": 61029.73
-        },
-        {
-          "year": 2010,
-          "value": 61518.555
-        },
-        {
-          "year": 2011,
-          "value": 62318.14
-        },
-        {
-          "year": 2012,
-          "value": 61480.812
-        },
-        {
-          "year": 2013,
-          "value": 61281.29
-        },
-        {
-          "year": 2014,
-          "value": 62045.855
-        },
-        {
-          "year": 2015,
-          "value": 63081.395
-        },
-        {
-          "year": 2016,
-          "value": 64267.74
-        },
-        {
-          "year": 2017,
-          "value": 65666.0
-        },
-        {
-          "year": 2018,
-          "value": 66758.266
-        },
-        {
-          "year": 2019,
-          "value": 67847.85
-        },
-        {
-          "year": 2020,
-          "value": 64862.19
-        },
-        {
-          "year": 2021,
-          "value": 68573.56
-        },
-        {
-          "year": 2022,
-          "value": 71324.04
-        },
-        {
-          "year": 2023,
-          "value": 70198.93
-        },
-        {
-          "year": 2024,
-          "value": 70498.88
-        }
-      ]
-    },
     "life": {
       "label": "Life expectancy",
       "unit": "years",
@@ -582,305 +435,98 @@
           "value": 82.158
         }
       ]
-    },
-    "renewables": {
-      "label": "Renewable energy",
-      "unit": "% of energy",
-      "insight": "Late but steep as wind and solar scaled.",
-      "series": [
-        {
-          "year": 1990,
-          "value": 0.273
-        },
-        {
-          "year": 1991,
-          "value": 0.31
-        },
-        {
-          "year": 1992,
-          "value": 0.33
-        },
-        {
-          "year": 1993,
-          "value": 0.363
-        },
-        {
-          "year": 1994,
-          "value": 0.414
-        },
-        {
-          "year": 1995,
-          "value": 0.442
-        },
-        {
-          "year": 1996,
-          "value": 0.546
-        },
-        {
-          "year": 1997,
-          "value": 0.616
-        },
-        {
-          "year": 1998,
-          "value": 0.703
-        },
-        {
-          "year": 1999,
-          "value": 0.77
-        },
-        {
-          "year": 2000,
-          "value": 0.895
-        },
-        {
-          "year": 2001,
-          "value": 0.958
-        },
-        {
-          "year": 2002,
-          "value": 1.15
-        },
-        {
-          "year": 2003,
-          "value": 1.124
-        },
-        {
-          "year": 2004,
-          "value": 1.452
-        },
-        {
-          "year": 2005,
-          "value": 2.013
-        },
-        {
-          "year": 2006,
-          "value": 2.24
-        },
-        {
-          "year": 2007,
-          "value": 2.341
-        },
-        {
-          "year": 2008,
-          "value": 2.817
-        },
-        {
-          "year": 2009,
-          "value": 3.323
-        },
-        {
-          "year": 2010,
-          "value": 3.039
-        },
-        {
-          "year": 2011,
-          "value": 3.546
-        },
-        {
-          "year": 2012,
-          "value": 3.67
-        },
-        {
-          "year": 2013,
-          "value": 3.61
-        },
-        {
-          "year": 2014,
-          "value": 3.651
-        },
-        {
-          "year": 2015,
-          "value": 4.031
-        },
-        {
-          "year": 2016,
-          "value": 4.139
-        },
-        {
-          "year": 2017,
-          "value": 4.795
-        },
-        {
-          "year": 2018,
-          "value": 5.505
-        },
-        {
-          "year": 2019,
-          "value": 6.709
-        },
-        {
-          "year": 2020,
-          "value": 9.735
-        },
-        {
-          "year": 2021,
-          "value": 11.483
-        },
-        {
-          "year": 2022,
-          "value": 14.417
-        },
-        {
-          "year": 2023,
-          "value": 16.63
-        },
-        {
-          "year": 2024,
-          "value": 18.119
-        }
-      ]
     }
   },
   "compare": {
     "co2": {
-      "Netherlands": 7.6,
-      "Belgium": 7.7,
-      "Germany": 7.9,
-      "France": 4.5,
-      "United Kingdom": 4.7,
-      "Ireland": 7.0,
-      "Denmark": 4.5,
-      "Norway": 7.0,
-      "Sweden": 3.6,
-      "Finland": 6.8,
-      "Poland": 8.0,
-      "Czechia": 8.5,
-      "Austria": 6.8,
-      "Switzerland": 4.0,
-      "Italy": 5.5,
-      "Spain": 5.2,
-      "Portugal": 4.0,
-      "Luxembourg": 11.8,
-      "Slovakia": 5.5,
-      "Slovenia": 6.0,
-      "Hungary": 4.5,
-      "Croatia": 4.3,
-      "Romania": 3.8,
-      "Bulgaria": 6.5,
-      "Greece": 5.8,
-      "Estonia": 9.0,
-      "Latvia": 3.5,
-      "Lithuania": 4.3
+      "Latvia": 3.452,
+      "Italy": 5.088,
+      "Netherlands": 6.297,
+      "Finland": 5.301,
+      "Lithuania": 4.387,
+      "Sweden": 3.592,
+      "Ireland": 6.339,
+      "France": 3.969,
+      "Greece": 5.311,
+      "Switzerland": 3.595,
+      "United Kingdom": 4.526,
+      "Germany": 6.769,
+      "Czechia": 7.044,
+      "Denmark": 4.746,
+      "Austria": 6.18,
+      "Hungary": 4.136,
+      "Romania": 3.605,
+      "Belgium": 7.28,
+      "Slovakia": 5.283,
+      "Portugal": 3.409,
+      "Slovenia": 6.018,
+      "Poland": 7.08,
+      "Bulgaria": 4.679,
+      "Norway": 6.668,
+      "Luxembourg": 10.46,
+      "Croatia": 4.765,
+      "Spain": 4.599,
+      "Estonia": 6.105
     },
     "population": {
-      "Netherlands": 17.7,
-      "Belgium": 11.6,
-      "Germany": 83.2,
-      "France": 67.8,
-      "United Kingdom": 67.0,
-      "Ireland": 5.0,
-      "Denmark": 5.9,
-      "Norway": 5.4,
-      "Sweden": 10.4,
-      "Finland": 5.5,
-      "Poland": 37.8,
-      "Czechia": 10.5,
-      "Austria": 8.9,
-      "Switzerland": 8.7,
-      "Italy": 59.0,
-      "Spain": 47.4,
-      "Portugal": 10.3,
-      "Luxembourg": 0.64,
-      "Slovakia": 5.4,
-      "Slovenia": 2.1,
-      "Hungary": 9.7,
-      "Croatia": 3.9,
-      "Romania": 19.0,
-      "Bulgaria": 6.9,
-      "Greece": 10.4,
-      "Estonia": 1.3,
-      "Latvia": 1.9,
-      "Lithuania": 2.8
-    },
-    "gdp": {
-      "Netherlands": 63000,
-      "Belgium": 60000,
-      "Germany": 58000,
-      "France": 50000,
-      "United Kingdom": 49000,
-      "Ireland": 102000,
-      "Denmark": 67000,
-      "Norway": 78000,
-      "Sweden": 60000,
-      "Finland": 53000,
-      "Poland": 41000,
-      "Czechia": 46000,
-      "Austria": 62000,
-      "Switzerland": 78000,
-      "Italy": 48000,
-      "Spain": 42000,
-      "Portugal": 39000,
-      "Luxembourg": 120000,
-      "Slovakia": 35000,
-      "Slovenia": 45000,
-      "Hungary": 38000,
-      "Croatia": 36000,
-      "Romania": 36000,
-      "Bulgaria": 29000,
-      "Greece": 33000,
-      "Estonia": 42000,
-      "Latvia": 36000,
-      "Lithuania": 43000
+      "Ireland": 5.197,
+      "Finland": 5.601,
+      "Czechia": 10.81,
+      "Slovenia": 2.118,
+      "Germany": 84.548,
+      "Portugal": 10.431,
+      "Luxembourg": 0.665,
+      "Slovakia": 5.518,
+      "Italy": 59.499,
+      "France": 66.439,
+      "Sweden": 10.551,
+      "Belgium": 11.713,
+      "Netherlands": 18.093,
+      "Hungary": 9.686,
+      "Switzerland": 8.871,
+      "Greece": 10.243,
+      "Poland": 38.763,
+      "Croatia": 3.896,
+      "Lithuania": 2.854,
+      "Bulgaria": 6.796,
+      "Romania": 19.118,
+      "Spain": 47.912,
+      "Austria": 9.13,
+      "Norway": 5.519,
+      "Latvia": 1.882,
+      "Estonia": 1.367,
+      "Denmark": 5.948,
+      "United Kingdom": 68.683
     },
     "life": {
-      "Netherlands": 81.7,
-      "Belgium": 81.9,
-      "Germany": 80.6,
-      "France": 82.5,
-      "United Kingdom": 80.9,
-      "Ireland": 82.4,
-      "Denmark": 81.4,
-      "Norway": 83.2,
-      "Sweden": 83.0,
-      "Finland": 81.9,
-      "Poland": 76.5,
-      "Czechia": 79.1,
-      "Austria": 81.1,
-      "Switzerland": 83.9,
-      "Italy": 82.8,
-      "Spain": 83.2,
-      "Portugal": 81.1,
-      "Luxembourg": 82.7,
-      "Slovakia": 77.0,
-      "Slovenia": 80.7,
-      "Hungary": 74.5,
-      "Croatia": 78.0,
-      "Romania": 75.3,
-      "Bulgaria": 74.3,
-      "Greece": 80.7,
-      "Estonia": 78.0,
-      "Latvia": 74.5,
-      "Lithuania": 75.7
-    },
-    "renewables": {
-      "Netherlands": 40.0,
-      "Belgium": 25.0,
-      "Germany": 44.0,
-      "France": 25.0,
-      "United Kingdom": 42.0,
-      "Ireland": 37.0,
-      "Denmark": 80.0,
-      "Norway": 98.0,
-      "Sweden": 70.0,
-      "Finland": 53.0,
-      "Poland": 21.0,
-      "Czechia": 15.0,
-      "Austria": 78.0,
-      "Switzerland": 62.0,
-      "Italy": 36.0,
-      "Spain": 42.0,
-      "Portugal": 58.0,
-      "Luxembourg": 37.0,
-      "Slovakia": 23.0,
-      "Slovenia": 35.0,
-      "Hungary": 14.0,
-      "Croatia": 53.0,
-      "Romania": 43.0,
-      "Bulgaria": 23.0,
-      "Greece": 42.0,
-      "Estonia": 34.0,
-      "Latvia": 53.0,
-      "Lithuania": 40.0
+      "Italy": 83.716,
+      "Austria": 81.956,
+      "Czechia": 79.834,
+      "Denmark": 81.933,
+      "Bulgaria": 75.636,
+      "Switzerland": 83.954,
+      "Belgium": 82.115,
+      "Latvia": 76.19,
+      "Sweden": 83.262,
+      "Croatia": 78.58,
+      "Lithuania": 76.025,
+      "Ireland": 82.412,
+      "Slovenia": 81.603,
+      "Hungary": 77.024,
+      "Luxembourg": 82.229,
+      "Spain": 83.67,
+      "Estonia": 79.153,
+      "Finland": 81.91,
+      "Greece": 81.857,
+      "Romania": 75.938,
+      "Norway": 83.308,
+      "Poland": 78.633,
+      "Netherlands": 82.158,
+      "Portugal": 82.36,
+      "Slovakia": 78.341,
+      "France": 83.325,
+      "Germany": 81.378,
+      "United Kingdom": 81.302
     }
   }
 }
