@@ -15,6 +15,18 @@ from pydantic import BaseModel, Field, ValidationError
 
 ISO = "NLD"
 MIN_YEAR = 1990
+
+# ISO3 -> display name (matches public/data/europe.topo.json properties.name).
+# Used to emit the per-country "compare" block that drives the map view.
+EUROPE = {
+    "NLD": "Netherlands", "BEL": "Belgium", "DEU": "Germany", "FRA": "France",
+    "GBR": "United Kingdom", "IRL": "Ireland", "DNK": "Denmark", "NOR": "Norway",
+    "SWE": "Sweden", "FIN": "Finland", "POL": "Poland", "CZE": "Czechia",
+    "AUT": "Austria", "CHE": "Switzerland", "ITA": "Italy", "ESP": "Spain",
+    "PRT": "Portugal", "LUX": "Luxembourg", "SVK": "Slovakia", "SVN": "Slovenia",
+    "HUN": "Hungary", "HRV": "Croatia", "ROU": "Romania", "BGR": "Bulgaria",
+    "GRC": "Greece", "EST": "Estonia", "LVA": "Latvia", "LTU": "Lithuania",
+}
 HERE = Path(__file__).resolve().parent
 OUT_PATH = HERE.parent / "public" / "data" / "indicators.json"
 
@@ -39,27 +51,39 @@ class Point(BaseModel):
     value: float
 
 
-def fetch_indicator(cfg: dict) -> list[Point]:
+def fetch_indicator(cfg: dict) -> tuple[list[Point], dict[str, float]]:
+    """Return (NL time series, latest value per European country)."""
     df = pd.read_csv(BASE.format(slug=cfg["slug"]))
     col = next((c for c in df.columns if cfg["match"].lower() in c.lower()), None)
     if col is None:
         raise RuntimeError(f"no column matching '{cfg['match']}' in {cfg['slug']}")
+    scale = cfg.get("scale", 1.0)
+
+    # NL time series
     nl = (df[df["Code"] == ISO][["Year", col]]
           .rename(columns={"Year": "year", col: "value"})
           .dropna().query("year >= @MIN_YEAR").sort_values("year"))
-    scale = cfg.get("scale", 1.0)
-    return [Point(year=int(r.year), value=round(float(r.value) * scale, 3)) for r in nl.itertuples()]
+    series = [Point(year=int(r.year), value=round(float(r.value) * scale, 3)) for r in nl.itertuples()]
+
+    # Latest value per European country (most recent non-null year each).
+    # Positional access (row[3]) because OWID column names contain spaces.
+    eu = df[df["Code"].isin(EUROPE)][["Code", "Year", col]].dropna()
+    latest = eu.sort_values("Year").groupby("Code").tail(1)
+    compare = {EUROPE[row[1]]: round(float(row[3]) * scale, 3) for row in latest.itertuples()}
+    return series, compare
 
 
 def main() -> int:
     out = {"refreshed_at": datetime.now(timezone.utc).isoformat(),
-           "country": "Netherlands", "source": "Our World in Data (CC-BY)", "indicators": {}}
+           "country": "Netherlands", "source": "Our World in Data (CC-BY)",
+           "indicators": {}, "compare": {}}
     for key, cfg in INDICATORS.items():
         try:
-            pts = fetch_indicator(cfg)
+            pts, compare = fetch_indicator(cfg)
             out["indicators"][key] = {"label": cfg["label"], "unit": cfg["unit"],
                                       "insight": cfg["insight"], "series": [p.model_dump() for p in pts]}
-            print(f"[ok]  {key:11s} {len(pts)} points")
+            out["compare"][key] = compare
+            print(f"[ok]  {key:11s} {len(pts)} points · {len(compare)} countries")
         except Exception as e:
             print(f"[skip] {key}: {e}", file=sys.stderr)
     if not out["indicators"]:

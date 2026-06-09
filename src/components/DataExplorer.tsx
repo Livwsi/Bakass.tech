@@ -19,7 +19,7 @@ import "leaflet/dist/leaflet.css"; // CSS only; Leaflet JS is imported lazily in
 
 interface Point { year: number; value: number; }
 interface Indicator { label: string; unit: string; insight: string; series: Point[]; }
-interface Dataset { country: string; indicators: Record<string, Indicator>; compare: Record<string, Record<string, number>>; }
+interface Dataset { country: string; indicators: Record<string, Indicator>; compare?: Record<string, Record<string, number>>; }
 type View = "trend" | "heatmap" | "map";
 
 const TEAL = ["#E3EFEC", "#A7E7D6", "#5FDCC4", "#2FD3C0", "#15A98C", "#0E6E63"];
@@ -113,9 +113,10 @@ export default function DataExplorer() {
       const L = (await import("leaflet")).default; // browser-only import (SSR-safe)
       if (cancelled || !mapElRef.current) return;
 
-      const cmp = data.compare[key] || {};
+      const cmp = (data.compare ?? {})[key] ?? {};
       const vals = Object.values(cmp);
-      const color = d3.scaleQuantize<string>().domain([d3.min(vals)!, d3.max(vals)!]).range(TEAL);
+      const hasCmp = vals.length > 0;
+      const color = hasCmp ? d3.scaleQuantize<string>().domain([d3.min(vals)!, d3.max(vals)!]).range(TEAL) : null;
       const unit = data.indicators[key].unit;
       const ranked = Object.entries(cmp).sort((a, b) => b[1] - a[1]);
       const rankOf = (name: string) => ranked.findIndex(([n]) => n === name) + 1;
@@ -123,7 +124,7 @@ export default function DataExplorer() {
       const styleFor = (name: string): any => {
         const v = cmp[name];
         return {
-          fillColor: v == null ? "#EEF3F2" : color(v),
+          fillColor: v == null || !color ? "#EEF3F2" : color(v),
           fillOpacity: 0.82,
           color: name === "Netherlands" ? "#0E6E63" : "#ffffff",
           weight: name === "Netherlands" ? 2.4 : 0.7,
@@ -178,8 +179,10 @@ export default function DataExplorer() {
   const peak = Math.max(...ind.series.map((s) => s.value));
   const fmt = (n: number) => (n >= 1000 ? d3.format("~s")(n) : n % 1 === 0 ? `${n}` : n.toFixed(1));
 
-  const cmp = data.compare[key] || {};
-  const lo = Math.min(...Object.values(cmp)), hi = Math.max(...Object.values(cmp));
+  const cmp = (data.compare ?? {})[key] ?? {};
+  const cmpVals = Object.values(cmp);
+  const hasCompare = cmpVals.length > 0;
+  const lo = hasCompare ? Math.min(...cmpVals) : 0, hi = hasCompare ? Math.max(...cmpVals) : 1;
   const legendScale = d3.scaleQuantize<string>().domain([lo, hi]).range(TEAL);
   const bounds = [lo, ...(legendScale.thresholds() as number[]), hi];
 
@@ -207,7 +210,7 @@ export default function DataExplorer() {
       <div className="de-canvas">
         {view !== "map" && <svg ref={svgRef} />}
         <div ref={mapElRef} className="de-map" style={{ display: view === "map" ? "block" : "none" }} />
-        {view === "map" && (
+        {view === "map" && hasCompare && (
           <div className="de-legend">
             <span className="lg-cap">{ind.label} ({ind.unit})</span>
             <div className="lg-row">
@@ -221,7 +224,7 @@ export default function DataExplorer() {
         <div ref={tipRef} className="de-tip" />
       </div>
 
-      <p className="de-insight">{ind.insight}{view === "map" ? " Hover for values, click a country for its European rank." : ""}</p>
+      <p className="de-insight">{ind.insight}{view === "map" ? (hasCompare ? " Hover for values, click a country for its European rank." : " Country comparison data refreshes with the weekly pipeline.") : ""}</p>
 
       <style>{`
         .de { padding: 28px 32px; position: relative; }
