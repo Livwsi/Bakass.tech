@@ -7,7 +7,7 @@ via .github/workflows/refresh-data.yml.
 """
 
 from __future__ import annotations
-import json, sys
+import json, sys, time
 from datetime import datetime, timezone
 from pathlib import Path
 import pandas as pd
@@ -51,9 +51,21 @@ class Point(BaseModel):
     value: float
 
 
+def read_owid_csv(slug: str) -> pd.DataFrame:
+    """Download a grapher CSV with simple retry (OWID can be flaky)."""
+    last_err: Exception | None = None
+    for attempt in range(3):
+        try:
+            return pd.read_csv(BASE.format(slug=slug))
+        except Exception as e:
+            last_err = e
+            time.sleep(2 * (attempt + 1))
+    raise RuntimeError(f"download failed after retries: {last_err}")
+
+
 def fetch_indicator(cfg: dict) -> tuple[list[Point], dict[str, float]]:
     """Return (NL time series, latest value per European country)."""
-    df = pd.read_csv(BASE.format(slug=cfg["slug"]))
+    df = read_owid_csv(cfg["slug"])
     col = next((c for c in df.columns if cfg["match"].lower() in c.lower()), None)
     if col is None:
         raise RuntimeError(f"no column matching '{cfg['match']}' in {cfg['slug']}")
@@ -66,14 +78,27 @@ def fetch_indicator(cfg: dict) -> tuple[list[Point], dict[str, float]]:
     series = [Point(year=int(r.year), value=round(float(r.value) * scale, 3)) for r in nl.itertuples()]
 
     # Latest value per European country (most recent non-null year each).
-    # Positional access (row[3]) because OWID column names contain spaces.
-    eu = df[df["Code"].isin(EUROPE)][["Code", "Year", col]].dropna()
-    latest = eu.sort_values("Year").groupby("Code").tail(1)
-    compare = {EUROPE[row[1]]: round(float(row[3]) * scale, 3) for row in latest.itertuples()}
+    # Isolated: a failure here must never take the NL series down with it.
+    compare: dict[str, float] = {}
+    try:
+        eu = df[df["Code"].isin(EUROPE)][["Code", "Year", col]].dropna()
+        latest = eu.sort_values("Year").groupby("Code").tail(1)
+        compare = {EUROPE[c]: round(float(v) * scale, 3)
+                   for c, v in zip(latest["Code"], latest[col])}
+    except Exception as e:
+        print(f"[warn] compare failed for {cfg['slug']}: {e}", file=sys.stderr)
     return series, compare
 
 
 def main() -> int:
+    # Previous output, used as fallback so one bad fetch never loses an indicator.
+    prev = {}
+    if OUT_PATH.exists():
+        try:
+            prev = json.loads(OUT_PATH.read_text())
+        except Exception:
+            prev = {}
+
     out = {"refreshed_at": datetime.now(timezone.utc).isoformat(),
            "country": "Netherlands", "source": "Our World in Data (CC-BY)",
            "indicators": {}, "compare": {}}
@@ -82,10 +107,15 @@ def main() -> int:
             pts, compare = fetch_indicator(cfg)
             out["indicators"][key] = {"label": cfg["label"], "unit": cfg["unit"],
                                       "insight": cfg["insight"], "series": [p.model_dump() for p in pts]}
-            out["compare"][key] = compare
-            print(f"[ok]  {key:11s} {len(pts)} points · {len(compare)} countries")
+            out["compare"][key] = compare or prev.get("compare", {}).get(key, {})
+            print(f"[ok]  {key:11s} {len(pts)} points · {len(out['compare'][key])} countries")
         except Exception as e:
             print(f"[skip] {key}: {e}", file=sys.stderr)
+            # keep last good data rather than dropping the indicator
+            if key in prev.get("indicators", {}):
+                out["indicators"][key] = prev["indicators"][key]
+                out["compare"][key] = prev.get("compare", {}).get(key, {})
+                print(f"[keep] {key}: reused previous data", file=sys.stderr)
     if not out["indicators"]:
         print("[error] no indicators fetched", file=sys.stderr); return 1
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)

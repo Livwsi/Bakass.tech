@@ -8,6 +8,7 @@ interface Project {
   impact: string;
   tags: string[];
   badge?: string; // small status chip, e.g. "in production"
+  why: string;    // expanded detail, revealed on click
 }
 
 const aiTrack: Project[] = [
@@ -15,24 +16,28 @@ const aiTrack: Project[] = [
     title: "Production LLM assistant for factory operators",
     impact: "Deployed an LLM (DeepSeek-R1) as a chatbot in a live electronics factory, with n8n workflow automation for ticketing and process orchestration around it.",
     tags: ["LLM", "n8n", "Python", "Docker"],
+    why: "Why it matters: operators get answers at the line without waiting on engineers. The hard parts were production-grade integration: prompt and context design, guardrails, and wiring it into the existing ticketing flow so it automates work instead of adding a toy.",
     badge: "in production",
   },
   {
     title: "PCBA test analytics & failure prediction",
     impact: "Built a Python pipeline that extracts and processes measurement data from production servers, surfaces patterns across large test datasets, and feeds prediction models, cutting failure-analysis time significantly.",
     tags: ["Python", "pandas", "SQL", "analytics"],
+    why: "Why it matters: test data was sitting unused on servers. The pipeline turns it into process-capability stats and trend insight that drive data-backed decisions on test strategy.",
     badge: "in production",
   },
   {
     title: "TinyML movement recognition, graduation project",
     impact: "End-to-end pipeline from raw IMU sensor data to an optimized CNN running on-device: preprocessing, feature extraction, training, and low-latency edge inference on Raspberry Pi.",
     tags: ["TensorFlow", "TinyML", "edge AI"],
+    why: "Why it matters: the whole loop runs on the edge, no cloud round-trip. Quantization and model surgery to hit real-time latency on constrained hardware is exactly where the electronics background pays off.",
     badge: "thesis, honours",
   },
   {
     title: "This site: ML running in your browser",
     impact: "CNN trained from scratch (98% test accuracy) served with TF.js, a RAG-style CV assistant, and a weekly ETL pipeline on a CI cron, all deployed automatically from git.",
     tags: ["TF.js", "RAG", "ETL", "CI/CD"],
+    why: "Why it matters: nothing here is a screenshot. The models run client-side in WebGL, the data refreshes itself weekly, and every push redeploys through CI. The portfolio is itself a shipped system.",
     badge: "live below",
   },
 ];
@@ -42,22 +47,26 @@ const hwTrack: Project[] = [
     title: "Custom drone platform, hardware to autonomy",
     impact: "Designed the hardware and firmware from the ground up: BMS and power electronics, sensor fusion and real-time control on FreeRTOS/ESP32-S3, ML-assisted PID tuning, and onboard OpenCV vision.",
     tags: ["ESP32-S3", "FreeRTOS", "OpenCV", "power"],
+    why: "Why it matters: one system spanning analog power, real-time firmware, and applied ML, designed modular so autonomous features drop in without redesign.",
   },
   {
     title: "Automated test systems for high-tech PCBAs",
     impact: "Develop automated test tooling for complex boards from leading high-tech OEMs: NI LabVIEW/TestStand test development, PCBA design in Altium, and C++/Python firmware.",
     tags: ["LabVIEW", "TestStand", "Altium", "C++"],
+    why: "Why it matters: these testers gate real products shipping to semicon, scientific and industrial customers. Reliability and clear failure diagnostics are the product.",
     badge: "in production",
   },
   {
     title: "Low-noise lock-in amplifier",
     impact: "Full-cycle analog design for precision signal detection in low-SNR environments: filtering, phase-sensitive detection, and gain staging.",
     tags: ["analog", "DSP", "precision"],
+    why: "Why it matters: recovering microvolt signals buried in noise is unforgiving; every dB of noise floor is earned in topology, grounding, and component choice.",
   },
   {
     title: "FPGA, power & vision side projects",
     impact: "HDMI video pipeline on a PYNQ-Z2 FPGA, a SIMO buck-boost converter with integrated LDOs, ESP32 face detection, and a solar-tracking USB-C PD station.",
     tags: ["FPGA", "VHDL", "SIMO", "ESP32"],
+    why: "Why it matters: built for the learning, kept for the range: gateware, switching power, and embedded vision are different disciplines, and the curiosity to cross them is the point.",
   },
 ];
 ---
@@ -70,13 +79,15 @@ const hwTrack: Project[] = [
       <p>From models to monitored production systems.</p>
     </div>
     {aiTrack.map((p) => (
-      <div class="card">
+      <div class="pcard" tabindex="0">
         <div class="card-top">
           <h4>{p.title}</h4>
-          {p.badge && <span class="badge-chip">{p.badge}</span>}
+          {p.badge && <span class={`badge-chip ${p.badge === "in production" ? "live" : ""}`}>{p.badge}</span>}
         </div>
         <p class="impact">{p.impact}</p>
         <div class="tags">{p.tags.map((t) => <span class="tag">{t}</span>)}</div>
+        <span class="expand"><span class="arr">→</span> details</span>
+        <div class="pmore"><p>{p.why}</p></div>
       </div>
     ))}
   </div>
@@ -88,20 +99,22 @@ const hwTrack: Project[] = [
       <p>From schematic to firmware to a working system.</p>
     </div>
     {hwTrack.map((p) => (
-      <div class="card">
+      <div class="pcard" tabindex="0">
         <div class="card-top">
           <h4>{p.title}</h4>
-          {p.badge && <span class="badge-chip">{p.badge}</span>}
+          {p.badge && <span class={`badge-chip ${p.badge === "in production" ? "live" : ""}`}>{p.badge}</span>}
         </div>
         <p class="impact">{p.impact}</p>
         <div class="tags">{p.tags.map((t) => <span class="tag">{t}</span>)}</div>
+        <span class="expand"><span class="arr">→</span> details</span>
+        <div class="pmore"><p>{p.why}</p></div>
       </div>
     ))}
   </div>
 </div>
 
 <style>
-  .proj { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line-2); margin-top: 46px; }
+  .proj { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line-2); margin-top: 46px; margin-bottom: 80px; border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; background: #fff; }
   .track { border-right: 1px solid var(--line); }
   .track:last-child { border-right: none; }
 
@@ -114,11 +127,11 @@ const hwTrack: Project[] = [
   .track-head h3 { font-size: 21px; letter-spacing: -.02em; margin-top: 12px; }
   .track-head p { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
 
-  .card { padding: 22px 32px; border-bottom: 1px solid var(--line); transition: background .2s; }
-  .card:last-child { border-bottom: none; }
-  .card:hover { background: var(--cream-2); }
+  .pcard { padding: 22px 32px 18px; border-bottom: 1px solid var(--line); transition: background .2s; cursor: pointer; }
+  .pcard:last-child { border-bottom: none; }
+  .pcard:hover { background: var(--cream-2); }
   .card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-  .card h4 { font-size: 15.5px; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+  .pcard h4 { font-size: 15.5px; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
   .badge-chip {
     flex-shrink: 0; font-family: var(--mono); font-size: 10px; color: var(--c1);
     border: 1px solid var(--line-2); padding: 2px 7px; border-radius: var(--r); white-space: nowrap;
@@ -135,4 +148,20 @@ const hwTrack: Project[] = [
     .track { border-right: none; }
     .track + .track .track-head { border-top: 1px solid var(--line-2); }
   }
+  .badge-chip.live { color: #04221d; background: var(--c3); border-color: var(--c3); animation: livePulse 2.4s ease-in-out infinite; }
+  @keyframes livePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(47,211,192,.5); } 50% { box-shadow: 0 0 0 6px rgba(47,211,192,0); } }
+  .expand { font-family: var(--mono); font-size: 10.5px; color: var(--c1); margin-top: 10px; display: inline-block; }
+  .expand .arr { transition: transform .3s; display: inline-block; }
+  :global(.pcard.open) .expand .arr { transform: rotate(90deg); }
+  .pmore { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+  :global(.pcard.open) .pmore { max-height: 220px; }
+  .pmore p { font-size: 13px; color: var(--ink-soft); line-height: 1.6; border-top: 1px dashed var(--line); margin-top: 12px; padding-top: 12px; }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".pcard").forEach((c) => {
+    const toggle = () => c.classList.toggle("open");
+    c.addEventListener("click", toggle);
+    c.addEventListener("keydown", (e: KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+  });
+</script>

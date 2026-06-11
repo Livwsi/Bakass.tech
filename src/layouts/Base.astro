@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Bakass.tech, AI / ML / CV portfolio",
-  description = "Live in-browser ML demos: gesture recognition, object detection, handwriting recognition, RAG chatbot. Built with Astro, TF.js, MediaPipe, Cloudflare Workers.",
+  title = "Bakass.tech, AI / ML / intelligent systems portfolio",
+  description = "I build intelligent systems that run in production: LLMs in a live factory, TinyML on the edge, and live in-browser ML demos. Built with Astro, TF.js, MediaPipe.",
 } = Astro.props;
 ---
 
@@ -23,24 +23,227 @@ const {
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <noscript><style>.reveal,.reveal-child{opacity:1;transform:none}</style></noscript>
   </head>
   <body>
+    <div id="intro" aria-hidden="true"><div class="imark"></div></div>
+    <div id="cur" aria-hidden="true"></div>
+    <div id="progress"></div>
+    <svg id="pcb" aria-hidden="true">
+      <defs>
+        <linearGradient id="pcbgrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0DBE94"></stop>
+          <stop offset="1" stop-color="#0E6E63"></stop>
+        </linearGradient>
+      </defs>
+      <path id="pcbpath" d=""></path>
+      <g id="pcbvias"></g>
+      <rect id="pcbhead" class="head" x="-6" y="-6" width="11" height="11"></rect>
+    </svg>
+
     <slot />
 
     <script>
-      // Global scroll-reveal IntersectionObserver
+      // ============ global interaction engine (v7) ============
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* intro boot wipe */
+      const intro = document.getElementById("intro");
+      if (intro) {
+        if (reduced) intro.remove();
+        else {
+          requestAnimationFrame(() => intro.classList.add("done"));
+          setTimeout(() => intro.remove(), 1500);
+        }
+      }
+
+      /* scroll progress bar */
+      const prog = document.getElementById("progress");
+      const onProg = () => {
+        if (!prog) return;
+        const h = document.documentElement;
+        prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
+      };
+      addEventListener("scroll", onProg, { passive: true });
+
+      /* custom square cursor */
+      const cur = document.getElementById("cur");
+      if (cur && matchMedia("(pointer: fine)").matches && !reduced) {
+        let cx = -50, cy = -50, tx = cx, ty = cy;
+        addEventListener("pointermove", (e: PointerEvent) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+        const lerp = () => {
+          cx += (tx - cx) * 0.3; cy += (ty - cy) * 0.3;
+          cur.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+          requestAnimationFrame(lerp);
+        };
+        lerp();
+        const hot = "a, button, .pcard, .chip, .j-filter, input, textarea";
+        document.addEventListener("pointerover", (e: Event) => { if ((e.target as HTMLElement).closest(hot)) cur.classList.add("big"); });
+        document.addEventListener("pointerout", (e: Event) => { if ((e.target as HTMLElement).closest(hot)) cur.classList.remove("big"); });
+      } else if (cur) cur.remove();
+
+      /* reveal observer (+ staggered children) */
       const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("in");
-              io.unobserve(e.target);
-            }
-          });
-        },
+        (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }),
         { threshold: 0.12 },
       );
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+      document.querySelectorAll("[data-stagger]").forEach((parent) => {
+        Array.from(parent.children).forEach((ch, i) => {
+          ch.classList.add("reveal-child");
+          (ch as HTMLElement).style.transitionDelay = `${i * 70}ms`;
+        });
+        if (!parent.classList.contains("reveal")) { parent.classList.add("reveal"); io.observe(parent); }
+      });
+
+      /* scroll-spy nav */
+      const spyLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-spy]"));
+      const spyObs = new IntersectionObserver(
+        (entries) => entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          spyLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+        }),
+        { rootMargin: "-35% 0px -55% 0px" },
+      );
+      spyLinks.forEach((a) => {
+        const sec = document.querySelector(a.getAttribute("href") ?? "");
+        if (sec) spyObs.observe(sec);
+      });
+
+      /* count-ups */
+      const cObs = new IntersectionObserver((entries) => entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        cObs.unobserve(e.target);
+        const el = e.target as HTMLElement;
+        const end = Number(el.dataset.count ?? 0);
+        if (reduced) { el.textContent = String(end); return; }
+        const t0 = performance.now(), dur = 1100;
+        const step = (now: number) => {
+          const p = Math.min(1, (now - t0) / dur);
+          el.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }), { threshold: 0.6 });
+      document.querySelectorAll("[data-count]").forEach((el) => cObs.observe(el));
+
+      /* capability bars */
+      const bObs = new IntersectionObserver((entries) => entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        bObs.unobserve(e.target);
+        e.target.querySelectorAll<HTMLElement>("[data-w]").forEach((b, i) =>
+          setTimeout(() => { b.style.width = (b.dataset.w ?? "0") + "%"; }, i * 90));
+      }), { threshold: 0.3 });
+      document.querySelectorAll(".caps").forEach((el) => bObs.observe(el));
+
+      /* spotlight hover */
+      document.querySelectorAll<HTMLElement>(".pcard, .j-card, .demo-box, .cert").forEach((el) => {
+        el.classList.add("spot");
+        el.addEventListener("pointermove", (e: PointerEvent) => {
+          const r = el.getBoundingClientRect();
+          el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+          el.style.setProperty("--my", `${e.clientY - r.top}px`);
+        }, { passive: true });
+      });
+
+      /* magnetic primary buttons */
+      if (!reduced) document.querySelectorAll<HTMLElement>(".btn-primary").forEach((b) => {
+        b.addEventListener("pointermove", (e: PointerEvent) => {
+          const r = b.getBoundingClientRect();
+          const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+          b.style.transform = `translate(${dx * 0.12}px, ${dy * 0.18}px)`;
+        }, { passive: true });
+        b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+      });
+
+      /* ============ page-long PCB trace ============ */
+      const pcb = document.getElementById("pcb") as unknown as SVGSVGElement | null;
+      const pcbPath = document.getElementById("pcbpath") as unknown as SVGPathElement | null;
+      const pcbVias = document.getElementById("pcbvias");
+      const pcbHead = document.getElementById("pcbhead") as unknown as SVGRectElement | null;
+      let samples: { L: number; y: number }[] = [];
+      let vias: { el: SVGRectElement; y: number }[] = [];
+      let totalLen = 0;
+      let rebuild1 = 0, rebuild2 = 0;
+
+      const buildTrace = () => {
+        if (!pcb || !pcbPath || !pcbVias || !pcbHead) return;
+        const docH = document.documentElement.scrollHeight;
+        pcb.setAttribute("width", String(innerWidth));
+        pcb.setAttribute("height", String(docH));
+        pcb.style.height = docH + "px";
+
+        const xL = 13, xR = innerWidth - 13;
+        const seen = new Set<number>();
+        const bounds = Array.from(document.querySelectorAll("header.hero, .marq, main > section, body > section"))
+          .map((el) => Math.round(el.getBoundingClientRect().bottom + scrollY))
+          .filter((y) => {
+            if (y <= 80 || y >= docH - 60 || seen.has(y)) return false;
+            seen.add(y); return true;
+          });
+
+        let d = `M ${xL} 72`;
+        let left = true;
+        const pts: [number, number][] = [[xL, 72]];
+        const jog = 12;
+        for (const y of bounds) {
+          const xFrom = left ? xL : xR, xTo = left ? xR : xL;
+          d += ` V ${y}`; pts.push([xFrom, y]);
+          const x1 = xFrom + (xTo - xFrom) * 0.33, x2 = xFrom + (xTo - xFrom) * 0.66;
+          const step = left ? 26 : -26;
+          d += ` H ${x1} V ${y - jog} H ${x1 + step} V ${y}`;
+          pts.push([x1, y], [x1, y - jog], [x1 + step, y - jog], [x1 + step, y]);
+          d += ` H ${x2} V ${y + jog} H ${x2 + step} V ${y}`;
+          pts.push([x2, y], [x2, y + jog], [x2 + step, y + jog], [x2 + step, y]);
+          d += ` H ${xTo}`; pts.push([xTo, y]);
+          left = !left;
+        }
+        const endX = innerWidth / 2, endY = docH - 36;
+        d += ` V ${endY - 40} H ${endX} V ${endY}`;
+        pts.push([left ? xL : xR, endY - 40], [endX, endY - 40], [endX, endY]);
+
+        pcbPath.setAttribute("d", d);
+        totalLen = pcbPath.getTotalLength();
+        pcbPath.style.strokeDasharray = String(totalLen);
+        pcbPath.style.strokeDashoffset = String(totalLen);
+
+        pcbVias.innerHTML = "";
+        vias = [];
+        pts.filter((_, i) => i % 2 === 0).forEach(([x, y]) => {
+          const r = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          r.setAttribute("class", "via");
+          r.setAttribute("x", String(x - 4)); r.setAttribute("y", String(y - 4));
+          r.setAttribute("width", "8"); r.setAttribute("height", "8");
+          pcbVias.appendChild(r); vias.push({ el: r, y });
+        });
+
+        samples = [];
+        const N = 420;
+        for (let i = 0; i <= N; i++) {
+          const L = (totalLen * i) / N;
+          const pt = pcbPath.getPointAtLength(L);
+          samples.push({ L, y: pt.y });
+        }
+        traceScroll();
+      };
+
+      const traceScroll = () => {
+        if (!totalLen || !pcbPath || !pcbHead) return;
+        const anchor = scrollY + innerHeight * 0.55;
+        let L = 0;
+        for (const sm of samples) if (sm.y <= anchor) L = Math.max(L, sm.L);
+        L = Math.min(L, totalLen);
+        pcbPath.style.strokeDashoffset = String(totalLen - L);
+        const tip = pcbPath.getPointAtLength(L);
+        pcbHead.style.transform = `translate(${tip.x}px, ${tip.y}px)`;
+        vias.forEach((v) => v.el.classList.toggle("on", v.y <= anchor));
+      };
+
+      addEventListener("scroll", traceScroll, { passive: true });
+      addEventListener("resize", () => { clearTimeout(rebuild1); rebuild1 = window.setTimeout(buildTrace, 200); });
+      addEventListener("load", () => setTimeout(buildTrace, 300));
+      buildTrace();
+      new ResizeObserver(() => { clearTimeout(rebuild2); rebuild2 = window.setTimeout(buildTrace, 300); }).observe(document.body);
     </script>
   </body>
 </html>

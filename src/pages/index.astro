@@ -2,15 +2,16 @@
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
+import Marquee from "../components/Marquee.astro";
 import SectionHead from "../components/SectionHead.astro";
-import Footer from "../components/Footer.astro";
-import ToolStack from "../components/ToolStack.astro";
-import Certs from "../components/Certs.astro";
-import Timeline from "../components/Timeline.astro";
 import Projects from "../components/Projects.astro";
+import Journey from "../components/Journey.astro";
+import ToolStack from "../components/ToolStack.astro";
+import CapBars from "../components/CapBars.astro";
+import Certs from "../components/Certs.astro";
+import Contact from "../components/Contact.astro";
 
 import ChatBot from "../components/ChatBot.tsx";
-import SkillMatrix from "../components/SkillMatrix.tsx";
 import GestureDemo from "../components/GestureDemo.tsx";
 import ObjectDemo from "../components/ObjectDemo.tsx";
 import DigitDemo from "../components/DigitDemo.tsx";
@@ -20,22 +21,23 @@ import DataExplorer from "../components/DataExplorer.tsx";
 <Base>
   <Nav />
   <Hero />
+  <Marquee />
 
-  <!-- 01 - AI : RAG chatbot + photo -->
+  <!-- 01 - Ask -->
   <section id="ask">
-    <div class="wrap">
+    <div class="wrap pad">
       <SectionHead
-        tag="// 01, AI"
+        tag="// 01, ASK"
         title="Ask my CV anything"
-        desc="A retrieval-augmented assistant grounded in my experience. Ask it how I build intelligent systems, my projects, skills, or background."
+        desc="A retrieval-style assistant grounded in my experience. Ask how I build intelligent systems, what I've deployed, or where I come from."
       />
       <div class="chat reveal">
         <div class="chat-info">
-          <img class="me" src="/img/ismail.jpg" alt="Ismail Bakass" />
+          <div class="me-wrap"><img class="me" src="/img/ismail.jpg" alt="Ismail Bakass" /></div>
           <h3>Ismail Bakass</h3>
           <p class="role">AI Engineer · Intelligent systems & automation · Eindhoven, NL</p>
           <p class="tagline">Passionate about technology and learning.</p>
-          <div class="stack">
+          <div class="stack" data-stagger>
             <span class="pill">Python</span><span class="pill">LLM / RAG</span><span class="pill">TinyML</span>
             <span class="pill">Power BI</span><span class="pill">CI/CD</span><span class="pill">Embedded</span>
           </div>
@@ -45,61 +47,37 @@ import DataExplorer from "../components/DataExplorer.tsx";
     </div>
   </section>
 
-  <!-- 02 - Flagship projects -->
-  <section id="projects">
-    <div class="wrap">
+  <!-- 02 - Shipped -->
+  <section id="shipped">
+    <div class="wrap pad">
       <SectionHead
         tag="// 02, SHIPPED"
         title="What I've shipped"
-        desc="Two tracks, one mindset: intelligent systems that run in the real world. AI/ML/data on one side, embedded and hardware on the other."
+        desc="Two tracks, one mindset: intelligent systems that run in the real world. Click any card for the details."
       />
       <Projects />
     </div>
   </section>
 
-  <!-- 03 - Tools -->
-  <section id="tools">
-    <div class="wrap">
+  <!-- 03 - Journey -->
+  <section id="journey">
+    <div class="wrap pad">
       <SectionHead
-        tag="// 03, STACK"
-        title="Tools & technologies"
-        desc="The kit I reach for, heavy on ML and data, grounded in software and hardware."
+        tag="// 03, JOURNEY"
+        title="The signal so far"
+        desc="Seven years from physics in Agadir to AI systems in Eindhoven, traced as one line. Scroll to draw it; filter by what you care about."
       />
-      <ToolStack />
+      <Journey />
     </div>
   </section>
 
-  <!-- 03 - Capability matrix -->
-  <section id="skills">
-    <div class="wrap">
+  <!-- 04 - Live lab -->
+  <section id="lab">
+    <div class="wrap pad">
       <SectionHead
-        tag="// 04, CAPABILITIES"
-        title="What I can build"
-        desc="Intelligent systems across two worlds: AI/ML/software and hardware/embedded. Filter by domain."
-      />
-      <div class="reveal"><SkillMatrix client:visible /></div>
-    </div>
-  </section>
-
-  <!-- 04 - Experience timeline -->
-  <section id="experience">
-    <div class="wrap">
-      <SectionHead
-        tag="// 05, EXPERIENCE"
-        title="Experience"
-        desc="Work, education, and volunteering."
-      />
-      <Timeline />
-    </div>
-  </section>
-
-  <!-- 05 - CV demos -->
-  <section id="cv-demos">
-    <div class="wrap">
-      <SectionHead
-        tag="// 06, COMPUTER VISION"
-        title="Three models, your device"
-        desc="Intelligent systems running entirely in your browser. Client-side inference, WebGL-accelerated, nothing uploaded. The MNIST CNN was trained by me (98% test accuracy); gesture and detection use SOTA pre-trained models."
+        tag="// 04, LIVE LAB"
+        title="Models running on your device"
+        desc="Client-side inference, WebGL-accelerated, nothing uploaded. The MNIST CNN was trained by me (98% test accuracy); gesture and detection use SOTA pre-trained models."
       />
       <div class="demo-row reveal">
         <GestureDemo client:visible />
@@ -109,46 +87,62 @@ import DataExplorer from "../components/DataExplorer.tsx";
     </div>
   </section>
 
-  <!-- 06 - Data explorer -->
+  <!-- 05 - Data -->
   <section id="data">
-    <div class="wrap">
+    <div class="wrap pad">
       <SectionHead
-        tag="// 07, DATA SCIENCE"
+        tag="// 05, DATA"
         title="The Netherlands, by the numbers"
-        desc="Multi-indicator explorer with three views: trend, heatmap, and an interactive map on a live OpenStreetMap basemap. ETL pipeline pulls OWID data on a CI cron, validates with Pydantic, serves clean JSON."
+        desc="Live OWID data, refreshed weekly by a CI pipeline: trend, heatmap, and an interactive map across 28 European countries."
       />
       <div class="reveal"><DataExplorer client:visible /></div>
     </div>
   </section>
 
-  <!-- 07 - Certificates -->
-  <section id="certs">
-    <div class="wrap">
+  <!-- 06 - Stack -->
+  <section id="stack">
+    <div class="wrap pad">
       <SectionHead
-        tag="// 08, CREDENTIALS"
+        tag="// 06, STACK"
+        title="Tools & capabilities"
+        desc="The kit I reach for, and how deep it goes. Honest levels, no tens."
+      />
+      <ToolStack />
+      <CapBars />
+    </div>
+  </section>
+
+  <!-- 07 - Credentials -->
+  <section id="certs">
+    <div class="wrap pad">
+      <SectionHead
+        tag="// 07, CREDENTIALS"
         title="Certificates"
-        desc="Formal training and verified credentials."
+        desc="Verifiable where possible: credential IDs included, links open the issuer's verification page."
       />
       <Certs />
     </div>
   </section>
 
-  <Footer />
+  <Contact />
 </Base>
 
 <style>
-  .chat { display: grid; grid-template-columns: 0.9fr 1.1fr; border-top: 1px solid var(--line-2); margin-top: 46px; }
+  .chat { display: grid; grid-template-columns: 0.9fr 1.1fr; border-top: 1px solid var(--line-2); margin-top: 46px; margin-bottom: 80px; }
   .chat-info { padding: 40px 32px; border-right: 1px solid var(--line-2); }
-  .chat-info .me { width: 100%; max-width: 240px; aspect-ratio: 1; border-radius: var(--r); object-fit: cover; border: 1px solid var(--line); margin-bottom: 18px; display: block; }
+  .me-wrap { width: 100%; max-width: 240px; aspect-ratio: 1; border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); margin-bottom: 18px; position: relative; }
+  .me-wrap .me { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .me-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(14,110,99,.32), rgba(47,211,192,.10)); mix-blend-mode: color; opacity: 1; transition: opacity .4s; }
+  .me-wrap:hover::after { opacity: 0; }
   .chat-info h3 { font-size: 22px; letter-spacing: -.02em; }
   .chat-info .role { font-family: var(--mono); font-size: 12px; color: var(--c1); margin: 5px 0 10px; }
   .chat-info .tagline { font-size: 15px; color: var(--ink-soft); margin-bottom: 16px; }
   .stack { display: flex; gap: 6px; flex-wrap: wrap; }
-  .demo-row { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line-2); margin-top: 46px; }
+  .demo-row { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line-2); margin-top: 46px; margin-bottom: 80px; }
   @media (max-width: 860px) {
     .chat { grid-template-columns: 1fr; }
     .chat-info { border-right: none; border-bottom: 1px solid var(--line-2); }
-    .chat-info .me { max-width: 180px; }
+    .me-wrap { max-width: 180px; }
     .demo-row { grid-template-columns: 1fr; }
   }
 </style>

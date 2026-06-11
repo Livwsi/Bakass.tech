@@ -1,194 +1,143 @@
 ---
-// Hero section. Sits above the fold. Right side renders a fake
-// confusion-matrix as a visual nod to the ML theme.
+// Dark terminal hero: boot sequence, word-reveal headline, count-up proofs,
+// cursor-reactive cell grid, scroll cue.
 ---
 
-<header id="top">
-  <div class="wrap hero-grid">
-    <div class="hero-left">
-      <span class="badge">
-        <span class="dot"></span>AI Engineer · Intelligent systems & automation
-      </span>
-      <h1>
-        I build <span class="grad">intelligent systems</span><br />
-        that run in production.
-      </h1>
+<header class="hero" id="top">
+  <div class="hglow"></div>
+  <div class="scroll-cue">SCROLL</div>
+  <div class="wrap pad hero-grid">
+    <div>
+      <div class="term" id="term" title="click to skip">
+        <span class="ln">$ system.boot()</span>
+        <span class="ln">&gt; ml-pipelines ......... <span class="ok">ok</span></span>
+        <span class="ln">&gt; embedded-firmware .... <span class="ok">ok</span></span>
+        <span class="ln">&gt; status: <span class="ok">all systems operational</span> <span class="caret"></span></span>
+      </div>
+      <h1 id="heroline">I build <span class="grad">intelligent systems</span><br />that run in production.</h1>
       <p class="sub">
         Passionate about technology and learning. I ship AI and data systems end to end, from an
         LLM assistant running in a live factory to TinyML on microcontrollers, backed by years of
         high-tech electronics and embedded engineering. The demos below run live on your device.
       </p>
-      <div class="proof-row">
-        <span class="proof"><b>LLM</b> in production</span>
-        <span class="proof"><b>98%</b> CNN, in your browser</span>
-        <span class="proof"><b>TinyML</b> on the edge</span>
+      <div class="proofs">
+        <div class="proof"><div class="n"><span data-count="98">0</span>%</div><div class="l">CNN test accuracy, in your browser</div></div>
+        <div class="proof"><div class="n"><span data-count="28">0</span></div><div class="l">countries, live data map</div></div>
+        <div class="proof"><div class="n"><span data-count="24">0</span>/7</div><div class="l">LLM assistant in production</div></div>
+        <div class="proof"><div class="n"><span data-count="5">0</span>+</div><div class="l">years hardware roots</div></div>
       </div>
       <div class="cta-row">
-        <a href="#projects" class="btn btn-primary">See what I've shipped →</a>
-        <a href="#ask" class="btn btn-ghost">Ask my AI</a>
+        <a class="btn btn-primary" href="#shipped">See what I've shipped →</a>
+        <a class="btn btn-ghost" href="#journey">Trace the journey</a>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-glow"></div>
-      <div class="matrix" id="mtx"></div>
-      <div class="matrix-lbl">neural activations · live</div>
-    </div>
+    <div class="cells" id="cells" aria-hidden="true"></div>
   </div>
 </header>
 
 <script>
-  // Continuously-animating activation grid, reads as "live inference".
-  // A wave of cells lights up across a 6x6 grid on a loop.
-  const mtx = document.getElementById("mtx");
-  if (mtx) {
-    const N = 36; const cells: HTMLDivElement[] = [];
-    for (let i = 0; i < N; i++) {
-      const d = document.createElement("div");
-      mtx.appendChild(d);
-      cells.push(d);
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* terminal boot */
+  const term = document.getElementById("term");
+  if (term) {
+    const lines = Array.from(term.querySelectorAll(".ln"));
+    if (reduced) lines.forEach((l) => l.classList.add("show"));
+    else {
+      let i = 0;
+      const next = () => { if (i < lines.length) { lines[i++].classList.add("show"); setTimeout(next, i === 1 ? 350 : 480); } };
+      setTimeout(next, 650);
+      term.addEventListener("click", () => lines.forEach((l) => l.classList.add("show")), { once: true });
     }
-    let t = 0;
-    setInterval(() => {
-      t += 0.18;
-      for (let i = 0; i < N; i++) {
-        const r = Math.floor(i / 6), c = i % 6;
-        // travelling wave + diagonal bias (mimics a confident classifier)
-        const wave = Math.sin(t - (r + c) * 0.5);
-        const diag = r === c ? 0.5 : 0;
-        cells[i].className = wave + diag > 0.55 ? "hot" : "";
+  }
+
+  /* word-by-word headline reveal */
+  const h1 = document.getElementById("heroline");
+  if (h1 && !reduced) {
+    const splitWords = (node: Node) => {
+      Array.from(node.childNodes).forEach((n) => {
+        if (n.nodeType === 3 && (n.textContent ?? "").trim()) {
+          const frag = document.createDocumentFragment();
+          (n.textContent ?? "").split(/(\s+)/).forEach((w) => {
+            if (!w.trim()) { frag.appendChild(document.createTextNode(w)); return; }
+            const wrap = document.createElement("span"); wrap.className = "w";
+            const inner = document.createElement("span"); inner.textContent = w;
+            wrap.appendChild(inner); frag.appendChild(wrap);
+          });
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1 && (n as HTMLElement).tagName !== "BR") splitWords(n);
+      });
+    };
+    splitWords(h1);
+    h1.querySelectorAll<HTMLElement>(".w > span").forEach((sp, i) => { sp.style.animationDelay = `${0.55 + i * 0.07}s`; });
+  }
+
+  /* cursor-reactive cell grid */
+  const grid = document.getElementById("cells");
+  if (grid) {
+    const COLS = 10, ROWS = 7;
+    const cells: HTMLDivElement[] = [];
+    for (let i = 0; i < COLS * ROWS; i++) { const d = document.createElement("div"); d.className = "cell"; grid.appendChild(d); cells.push(d); }
+    let mx = -1, my = -1, idle = true, t = 0, idleTimer = 0;
+    grid.addEventListener("pointermove", (e: PointerEvent) => {
+      const r = grid.getBoundingClientRect();
+      mx = ((e.clientX - r.left) / r.width) * COLS;
+      my = ((e.clientY - r.top) / r.height) * ROWS;
+      idle = false; clearTimeout(idleTimer); idleTimer = window.setTimeout(() => { idle = true; }, 1400);
+    }, { passive: true });
+    grid.addEventListener("pointerleave", () => { idle = true; });
+    const paint = () => {
+      t += 0.035;
+      for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+        const c = cells[y * COLS + x];
+        let lit = false, lit2 = false;
+        if (!idle) {
+          const d = Math.hypot(x + 0.5 - mx, y + 0.5 - my);
+          lit = d < 1.3; lit2 = d >= 1.3 && d < 2.6;
+        } else {
+          const wave = Math.sin(t + x * 0.55 + y * 0.4);
+          lit = wave > 0.92; lit2 = wave > 0.7 && wave <= 0.92;
+        }
+        c.classList.toggle("lit", lit); c.classList.toggle("lit2", lit2);
       }
-    }, 90);
+      if (!reduced) requestAnimationFrame(paint);
+    };
+    if (reduced) cells.forEach((c, i) => { if (i % 9 === 0) c.classList.add("lit2"); });
+    else paint();
   }
 </script>
 
 <style>
-  header {
-    position: relative;
-    border-bottom: 1px solid var(--line-2);
-    overflow: hidden;
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    min-height: 540px;
-  }
-  .hero-left {
-    padding: 130px 32px 70px;
-    border-right: 1px solid var(--line-2);
-    position: relative;
-    z-index: 1;
-  }
-  .hero-right {
-    position: relative;
-    background: var(--cream-2);
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-  }
-  .hero-glow {
-    position: absolute;
-    top: -20%; right: -30%;
-    width: 560px; height: 560px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(13, 190, 148, 0.35), transparent 65%);
-    filter: blur(14px);
-  }
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink-soft);
-    border: 1px solid var(--line-2);
-    border-radius: var(--r);
-    padding: 6px 13px;
-    margin-bottom: 26px;
-    animation: fade .8s ease both;
-  }
-  .badge .dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--c2);
-    box-shadow: 0 0 0 3px rgba(13, 190, 148, 0.25);
-  }
-  h1 {
-    font-size: clamp(38px, 5.6vw, 72px);
-    line-height: .96;
-    letter-spacing: -.04em;
-    font-weight: 700;
-    margin-bottom: 24px;
-    animation: fade .8s ease .1s both;
-  }
-  .grad {
-    background: var(--flame);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .sub {
-    font-size: clamp(16px, 2vw, 20px);
-    color: var(--ink-soft);
-    max-width: 520px;
-    margin-bottom: 34px;
-    animation: fade .8s ease .2s both;
-  }
-  .proof-row { display: flex; gap: 0; border: 1px solid var(--line-2); border-radius: var(--r); width: fit-content; overflow: hidden; margin: 18px 0 4px; flex-wrap: wrap; }
-  .proof { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); padding: 8px 14px; border-right: 1px solid var(--line); }
+  .hero { background: var(--ink); color: var(--cream); border-bottom: 1px solid var(--ink-line); position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .hglow { position: absolute; right: -10%; top: -25%; width: 60%; height: 150%; background: radial-gradient(circle, rgba(13,190,148,.16), transparent 62%); pointer-events: none; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; padding-top: 130px; padding-bottom: 78px; align-items: center; position: relative; }
+  .term { font-family: var(--mono); font-size: 12.5px; color: var(--c4); background: rgba(13,190,148,.06); border: 1px solid var(--ink-line); border-radius: var(--r); padding: 12px 16px; width: fit-content; min-width: 320px; min-height: 86px; cursor: default; }
+  .term .ln { display: block; white-space: pre; opacity: 0; }
+  .term :global(.ln.show) { opacity: 1; }
+  .term .ok { color: var(--c3); }
+  .term .caret { display: inline-block; width: 7px; height: 13px; background: var(--c3); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  h1 { font-size: clamp(38px, 5.4vw, 62px); line-height: 1.04; letter-spacing: -.035em; font-weight: 700; margin: 26px 0 18px; }
+  h1 .grad { background: linear-gradient(92deg, var(--c2), var(--c4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  h1 :global(.w) { display: inline-block; overflow: hidden; vertical-align: bottom; }
+  h1 :global(.w > span) { display: inline-block; transform: translateY(110%); animation: wordUp .7s cubic-bezier(.2,.7,.2,1) forwards; }
+  @keyframes wordUp { to { transform: translateY(0); } }
+  .sub { font-size: 16.5px; line-height: 1.6; color: #B7C6C3; max-width: 560px; }
+  .proofs { display: flex; border: 1px solid var(--ink-line); border-radius: var(--r); width: fit-content; margin: 26px 0 30px; flex-wrap: wrap; background: rgba(247,249,249,.02); }
+  .proof { padding: 13px 20px; border-right: 1px solid var(--ink-line); transition: background .25s, transform .25s; }
   .proof:last-child { border-right: none; }
-  .proof b { color: var(--c1); font-weight: 700; }
-  .cta-row {
-    display: flex;
-    flex-wrap: wrap;
-    animation: fade .8s ease .3s both;
-    border: 1px solid var(--line-2);
-    width: fit-content;
-    border-radius: var(--r);
-    overflow: hidden;
-  }
-  .btn {
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 13px 26px;
-    transition: all .2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn-primary { background: var(--ink); color: var(--cream); }
-  .btn-primary:hover { background: #000; }
-  .btn-ghost { color: var(--ink); border-left: 1px solid var(--line-2); }
-  .btn-ghost:hover { background: var(--cream-2); }
-
-  .matrix {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 4px;
-    width: 78%;
-  }
-  .matrix :global(div) {
-    aspect-ratio: 1;
-    border-radius: var(--r);
-    background: var(--cream);
-    border: 1px solid var(--line);
-  }
-  .matrix :global(div) { transition: background .25s ease, border-color .25s ease; }
-  .matrix :global(div.hot) {
-    background: var(--flame-v);
-    border-color: transparent;
-  }
-  .matrix-lbl {
-    position: absolute;
-    bottom: 18px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-soft);
-  }
-
-  @media (max-width: 860px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
-  }
+  .proof:hover { background: rgba(13,190,148,.07); transform: translateY(-2px); }
+  .proof .n { font-size: 24px; font-weight: 700; color: var(--c3); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .proof .l { font-family: var(--mono); font-size: 10.5px; color: #8FA3A0; margin-top: 3px; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cells { display: grid; grid-template-columns: repeat(10, 1fr); gap: 7px; aspect-ratio: 10/7; align-self: center; }
+  .cells :global(.cell) { background: #15201e; border: 1px solid var(--ink-line); border-radius: var(--r); transition: background .35s, box-shadow .35s; }
+  .cells :global(.cell.lit) { background: var(--c1); box-shadow: 0 0 14px rgba(13,190,148,.35); }
+  .cells :global(.cell.lit2) { background: #11433c; }
+  .scroll-cue { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: 10px; letter-spacing: .2em; color: #6e837f; z-index: 2; }
+  .scroll-cue::after { content: ""; display: block; width: 1.5px; height: 26px; margin: 8px auto 0; background: linear-gradient(180deg, var(--c2), transparent); animation: cueDrop 1.6s ease-in-out infinite; }
+  @keyframes cueDrop { 0% { transform: scaleY(0); transform-origin: top; } 60% { transform: scaleY(1); transform-origin: top; } 100% { opacity: 0; } }
+  @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; padding-top: 110px; padding-bottom: 58px; } .cells { max-width: 420px; } }
 </style>

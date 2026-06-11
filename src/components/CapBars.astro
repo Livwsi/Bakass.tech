@@ -1,0 +1,22 @@
+---
+// Capability bars: fill on scroll into view (driven by the global .caps observer).
+interface Cap { label: string; tools: string; w: number; }
+const caps: Cap[] = [
+  { label: "LLM apps, RAG & automation", tools: "DeepSeek · n8n · APIs", w: 84 },
+  { label: "Embedded firmware (C/C++)", tools: "ESP32 · STM32 · FreeRTOS", w: 85 },
+  { label: "Deep learning & computer vision", tools: "PyTorch · OpenCV · TF.js", w: 83 },
+  { label: "Automated test systems", tools: "LabVIEW · TestStand", w: 84 },
+  { label: "Data engineering & ETL", tools: "SQL · PySpark · Pydantic", w: 80 },
+  { label: "TinyML / edge inference", tools: "TFLite Micro · quantization", w: 82 },
+  { label: "MLOps & deployment", tools: "MLflow · Docker · CI/CD", w: 78 },
+  { label: "Analog & sensor design", tools: "lock-in · IMU · DSP", w: 82 },
+];
+---
+<div class="caps reveal" data-stagger>
+  {caps.map((c) => (
+    <div class="cap">
+      <div class="cap-top"><span class="cl">{c.label}</span><span class="cv">{c.tools}</span></div>
+      <div class="cap-bar"><span data-w={c.w}></span></div>
+    </div>
+  ))}
+</div>

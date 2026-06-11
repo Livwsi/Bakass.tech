@@ -8,13 +8,13 @@
       <span class="mark"></span>bakass<span class="dim">.tech</span>
     </a>
     <div class="nav-links">
-      <a href="#ask">Ask AI</a>
-      <a href="#projects">Projects</a>
-      <a href="#tools">Stack</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#cv-demos">Demos</a>
-      <a href="#data">Data</a>
+      <a href="#ask" data-spy>Ask AI</a>
+      <a href="#shipped" data-spy>Shipped</a>
+      <a href="#journey" data-spy>Journey</a>
+      <a href="#lab" data-spy>Lab</a>
+      <a href="#data" data-spy>Data</a>
+      <a href="#stack" data-spy>Stack</a>
+      <a href="#certs" data-spy>Credentials</a>
       <a href="https://www.linkedin.com/in/ismailbakass/" class="nav-cta" target="_blank" rel="noopener">Let's connect</a>
     </div>
   </div>
@@ -59,4 +59,7 @@
   @media (max-width: 860px) {
     .nav-links a:not(.nav-cta) { display: none; }
   }
+  .nav-links a.active { color: var(--c1); background: var(--cream-2); }
+  .nav-cta::after { content: " →"; display: inline-block; transition: transform .25s; }
+  .nav-cta:hover::after { transform: translateX(3px); }
 </style>

@@ -1,0 +1,9 @@
+---
+// Slow-scrolling tools ticker. Pauses on hover; masked edges.
+const items = ["PYTHON","PYTORCH","TENSORFLOW","LLM / RAG","N8N","PYSPARK","POWER BI","DOCKER","CI/CD","FASTAPI","ESP32","STM32","FREERTOS","LABVIEW","ALTIUM","OPENCV","TINYML","SQL"];
+---
+<div class="marq" aria-hidden="true">
+  <div class="marq-inner">
+    {items.map((t) => <b>{t}</b>)}{items.map((t) => <b>{t}</b>)}
+  </div>
+</div>

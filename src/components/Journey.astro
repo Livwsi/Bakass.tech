@@ -1,0 +1,153 @@
+---
+// Signature interactive timeline: scroll-drawn signal trace, sticky year readout,
+// node activation pings, and category filters. Data mirrors the CVs.
+interface Item { kind: "work" | "edu" | "vol"; year: string; title: string; period: string; org: string; tagLabel: string; note: string; }
+const items: Item[] = [
+  { kind: "work", year: "2026", title: "Test Development Engineer", period: "Oct 2025 to Present", org: "Neways Electronics International", tagLabel: "work · AI / data",
+    note: "Automated test development for high-tech PCBAs, plus the data layer on top: analytics pipelines, failure prediction, a production LLM assistant, and n8n automation." },
+  { kind: "work", year: "2025", title: "Electronics & AI Engineer", period: "Feb 2025 to Oct 2025", org: "VTEC Lasers & Sensors", tagLabel: "work · AI / ML",
+    note: "Custom drone platform from the ground up: BMS and power electronics, FreeRTOS on ESP32-S3, sensor fusion, ML-assisted PID tuning, onboard OpenCV vision." },
+  { kind: "vol", year: "2025", title: "Volunteer, refugee support", period: "Apr 2025 to Present", org: "VluchtelingenWerk NL · Vluchtelingen In De Knel", tagLabel: "volunteering",
+    note: "Hands-on help and translation for newly arrived refugees, plus the Wake Up Your Mind project for young people." },
+  { kind: "edu", year: "2025", title: "BSc, Electrical & Electronics Engineering", period: "2021 to 2025", org: "Fontys University of Applied Sciences", tagLabel: "education · honours",
+    note: "Graduated with honours, specialisation Electronic Systems. Thesis: TinyML movement recognition from IMU sensor data, deployed on-device." },
+  { kind: "work", year: "2024", title: "Graduation Intern, Electronics & AI", period: "Feb 2024 to Feb 2025", org: "VTEC Lasers & Sensors", tagLabel: "work · AI / ML",
+    note: "Real-time IMU movement recognition on Raspberry Pi: custom PCB, embedded C acquisition, full ML pipeline, optimized TinyML model for low-latency inference." },
+  { kind: "work", year: "2024", title: "R&D Intern, Electronics Test Automation", period: "Feb 2024 to Feb 2025", org: "Signify", tagLabel: "work",
+    note: "Automated testing workflows and data-driven performance evaluation for high-power LED drivers (400W to 1800W)." },
+  { kind: "vol", year: "2024", title: "Board Treasurer · Vice President", period: "2024 to Present", org: "ESFF Dekate Mousa · Association TAZOULT", tagLabel: "volunteering",
+    note: "Treasurer of a TU/e photography association; vice president of a village association in Morocco working on safe water, solar power, and education." },
+  { kind: "work", year: "2023", title: "R&D Intern, Electronics", period: "Sep 2023 to Feb 2024", org: "IDbike", tagLabel: "work",
+    note: "Reverse engineered a VESC-based e-bike motor controller: firmware structure, control algorithms, hardware architecture." },
+  { kind: "work", year: "2023", title: "Junior Electronics Engineer", period: "Feb 2023 to Feb 2024", org: "VTEC Lasers & Sensors", tagLabel: "work",
+    note: "Low-noise, high-sensitivity lock-in amplifier for precision detection in low-SNR environments: full-cycle analog design." },
+  { kind: "edu", year: "2023", title: "Pre-Master, Electrical Engineering", period: "2022 to 2023", org: "TU Eindhoven (TU/e)", tagLabel: "education",
+    note: "Pre-master track alongside the bachelor, deepening the mathematical and systems foundations." },
+  { kind: "vol", year: "2022", title: "Board Member, Public Relations", period: "Nov 2022 to Sep 2024", org: "Fontys PROUD Honours Program", tagLabel: "volunteering",
+    note: "PR for the honours community: open days, events, and getting students excited about going beyond the curriculum." },
+  { kind: "edu", year: "2021", title: "Associate's Degree, Physics", period: "2019 to 2021", org: "Université Ibn Zohr, Agadir", tagLabel: "education",
+    note: "Where it started: physics fundamentals, circuit theory, and the curiosity that led from Morocco to the Brainport region." },
+];
+
+const languages = [
+  { name: "Arabic", level: "native" }, { name: "Tamazight", level: "native" },
+  { name: "English", level: "professional" }, { name: "French", level: "intermediate" },
+  { name: "Dutch", level: "elementary" },
+];
+---
+
+<div class="j-filters reveal" role="group" aria-label="Filter timeline">
+  <button class="j-filter on" data-f="all">All</button>
+  <button class="j-filter" data-f="work">Work</button>
+  <button class="j-filter" data-f="edu">Education</button>
+  <button class="j-filter" data-f="vol">Volunteering</button>
+</div>
+
+<div class="j-layout">
+  <div class="j-year-rail"><div class="j-year" id="jyear">2026<small>SCROLL TO TRACE</small></div></div>
+  <div class="j-body" id="jbody">
+    <div class="j-track"></div>
+    <div class="j-fill" id="jfill"></div>
+    <div class="j-pulse" id="jpulse"></div>
+    {items.map((it) => (
+      <div class="j-item" data-kind={it.kind} data-year={it.year}>
+        <div class="j-node"></div>
+        <div class="j-card">
+          <div class="j-top"><span class="j-title">{it.title}</span><span class="j-period">{it.period}</span></div>
+          <div class="j-org">{it.org} <span class={`j-kind ${it.kind}`}>{it.tagLabel}</span></div>
+          <p class="j-note">{it.note}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<div class="j-langs reveal" data-stagger>
+  <span class="j-langs-label">Languages</span>
+  {languages.map((l) => <span class="j-lang">{l.name} <em>{l.level}</em></span>)}
+</div>
+
+<script>
+  const jbody = document.getElementById("jbody");
+  const jfill = document.getElementById("jfill");
+  const jpulse = document.getElementById("jpulse");
+  const jyear = document.getElementById("jyear");
+  const items = Array.from(document.querySelectorAll<HTMLElement>(".j-item"));
+
+  const trace = () => {
+    if (!jbody || !jfill || !jpulse || !jyear) return;
+    const r = jbody.getBoundingClientRect();
+    const anchor = innerHeight * 0.45;
+    let y = anchor - r.top;
+    y = Math.max(0, Math.min(y, r.height - 12));
+    jfill.style.height = y + "px";
+    jpulse.style.top = 6 + y + "px";
+
+    let current: HTMLElement | null = null;
+    for (const it of items) {
+      if (it.classList.contains("filtered")) continue;
+      const ir = it.getBoundingClientRect();
+      const passed = ir.top + 14 < anchor;
+      it.classList.toggle("passed", passed);
+      if (passed) current = it;
+    }
+    if (!current) current = items.find((i) => !i.classList.contains("filtered")) ?? null;
+    const label = jyear.firstChild;
+    if (current && label && label.textContent !== (current.dataset.year ?? "")) {
+      label.textContent = current.dataset.year ?? "";
+      jyear.classList.remove("flip");
+      void jyear.offsetWidth;
+      jyear.classList.add("flip");
+    }
+  };
+  addEventListener("scroll", trace, { passive: true });
+  addEventListener("resize", trace);
+  trace();
+
+  document.querySelectorAll<HTMLElement>(".j-filter").forEach((f) => f.addEventListener("click", () => {
+    document.querySelectorAll(".j-filter").forEach((x) => x.classList.remove("on"));
+    f.classList.add("on");
+    const k = f.dataset.f ?? "all";
+    items.forEach((it) => it.classList.toggle("filtered", k !== "all" && it.dataset.kind !== k));
+    setTimeout(trace, 460);
+  }));
+</script>
+
+<style>
+  .j-filters { display: flex; border: 1px solid var(--line-2); border-radius: var(--r); width: fit-content; margin: 36px 0 10px; overflow: hidden; }
+  .j-filter { font-family: var(--mono); font-size: 12px; padding: 9px 16px; background: var(--cream); border: none; border-right: 1px solid var(--line); color: var(--ink-soft); cursor: pointer; transition: all .2s; }
+  .j-filter:last-child { border-right: none; }
+  .j-filter:hover { background: var(--cream-2); color: var(--ink); }
+  .j-filter.on { background: var(--ink); color: var(--cream); }
+  .j-layout { display: grid; grid-template-columns: 110px 1fr; gap: 24px; margin-top: 28px; }
+  .j-year { position: sticky; top: 96px; font-family: var(--mono); font-weight: 700; font-size: 44px; letter-spacing: -.04em; color: var(--c1); line-height: 1; }
+  .j-year small { display: block; font-size: 10px; font-weight: 400; color: var(--ink-soft); letter-spacing: .05em; margin-top: 6px; }
+  .j-year.flip { animation: yflip .45s cubic-bezier(.2,.7,.2,1); }
+  @keyframes yflip { 0% { transform: translateY(10px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+  .j-body { position: relative; padding-left: 44px; padding-bottom: 10px; }
+  .j-track { position: absolute; left: 14px; top: 6px; bottom: 6px; width: 2px; background: var(--line); border-radius: 1px; }
+  .j-fill { position: absolute; left: 14px; top: 6px; width: 2px; height: 0; background: linear-gradient(180deg, var(--c2), var(--c1)); border-radius: 1px; }
+  .j-pulse { position: absolute; left: 15px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--c3); transform: translate(-50%, -50%); box-shadow: 0 0 0 5px rgba(47,211,192,.18), 0 0 18px rgba(13,190,148,.55); }
+  .j-item { position: relative; padding: 0 0 30px; max-height: 600px; transition: max-height .45s ease, opacity .35s ease, padding .45s ease; overflow: hidden; }
+  .j-item.filtered { max-height: 0; opacity: 0; padding: 0; }
+  .j-node { position: absolute; left: -36.5px; top: 7px; width: 13px; height: 13px; border-radius: 50%; background: var(--cream); border: 2.5px solid var(--line-2); transition: all .35s; }
+  .j-item.passed .j-node { border-color: var(--c1); background: var(--c2); box-shadow: 0 0 0 4px rgba(13,190,148,.14); }
+  .j-item.passed .j-node::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--c3); animation: ping .7s ease-out forwards; }
+  @keyframes ping { from { transform: scale(.6); opacity: 1; } to { transform: scale(2.4); opacity: 0; } }
+  :global(.j-card) { background: #fff; border: 1px solid var(--line-2); border-radius: var(--r); padding: 18px 22px; transition: transform .25s, box-shadow .25s, border-color .25s; }
+  :global(.j-card:hover) { transform: translateX(4px); border-color: var(--c2); box-shadow: 0 4px 24px rgba(14,110,99,.08); }
+  .j-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  .j-title { font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+  .j-period { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+  .j-org { font-family: var(--mono); font-size: 12px; color: var(--c1); margin-top: 4px; }
+  .j-note { font-size: 13.5px; color: var(--ink-soft); margin-top: 9px; line-height: 1.55; }
+  .j-kind { font-family: var(--mono); font-size: 9.5px; letter-spacing: .07em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--r); }
+  .j-kind.work { color: #04221d; background: var(--c3); }
+  .j-kind.edu { color: var(--c1); background: var(--cream-2); border: 1px solid var(--line-2); }
+  .j-kind.vol { color: var(--ink-soft); background: var(--cream); border: 1px solid var(--line); }
+  .j-langs { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 26px 0 80px; }
+  .j-langs-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-soft); margin-right: 4px; }
+  .j-lang { font-family: var(--mono); font-size: 12px; border: 1px solid var(--line); background: #fff; border-radius: var(--r); padding: 6px 12px; }
+  .j-lang em { font-style: normal; color: var(--ink-soft); }
+  @media (max-width: 760px) { .j-layout { grid-template-columns: 1fr; } .j-year-rail { display: none; } }
+</style>
