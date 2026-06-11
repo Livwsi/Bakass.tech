@@ -39,7 +39,7 @@ const mono = (issuer: string) => {
 
 <div class="certs">
   {certs.map((c) => (
-    <a class="cert" href={c.url ?? "#"} target={c.url ? "_blank" : undefined} rel="noopener">
+    <a class={"cert" + (c.url ? "" : " cert-nolink")} href={c.url ?? undefined} target={c.url ? "_blank" : undefined} rel="noopener">
       <div class="cert-badge">
         {c.img ? (
           <img src={`/certs/${c.img}`} alt={c.issuer} loading="lazy" />
@@ -68,6 +68,8 @@ const mono = (issuer: string) => {
   }
   .cert:nth-child(2n) { border-right: none; }
   .cert:hover { background: var(--cream-2); }
+  .cert-nolink { pointer-events: none; }
+  .cert-nolink .cert-arrow { display: none; }
   .cert-badge {
     width: 44px; height: 44px; flex-shrink: 0; margin-top: 2px;
     border: 1px solid var(--line); border-radius: var(--r);

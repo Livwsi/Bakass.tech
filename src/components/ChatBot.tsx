@@ -106,7 +106,7 @@ export default function ChatBot() {
     <div className="chat-box">
       <div className="chat-head">
         <span className="live" />
-        bakass-cv-assistant · {WORKER_URL ? "RAG" : "local"} · online
+        bakass-cv-assistant · online
       </div>
 
       <div className="chat-body" ref={bodyRef}>
