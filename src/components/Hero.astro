@@ -65,7 +65,19 @@
             wrap.appendChild(inner); frag.appendChild(wrap);
           });
           node.replaceChild(frag, n);
-        } else if (n.nodeType === 1 && (n as HTMLElement).tagName !== "BR") splitWords(n);
+        } else if (n.nodeType === 1 && (n as HTMLElement).tagName !== "BR") {
+          const el = n as HTMLElement;
+          if (el.classList.contains("grad")) {
+            // Atomic: never split inside background-clip:text elements.
+            // Wrapping its words in inline-block spans detaches them from the
+            // parent gradient while the transparent fill still inherits,
+            // rendering the text invisible. Animate the whole phrase as one unit.
+            const wrap = document.createElement("span"); wrap.className = "w";
+            const inner = document.createElement("span");
+            node.replaceChild(wrap, el);
+            wrap.appendChild(inner); inner.appendChild(el);
+          } else splitWords(el);
+        }
       });
     };
     splitWords(h1);
