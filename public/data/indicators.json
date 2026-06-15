@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-06-09T21:55:42.443711+00:00",
+  "refreshed_at": "2026-06-15T12:13:29.432259+00:00",
   "country": "Netherlands",
   "source": "Our World in Data (CC-BY)",
   "indicators": {
@@ -293,6 +293,153 @@
         }
       ]
     },
+    "gdp": {
+      "label": "GDP per capita",
+      "unit": "$ (PPP)",
+      "insight": "Among the highest in the EU; recovering above $60k.",
+      "series": [
+        {
+          "year": 1990,
+          "value": 43128.312
+        },
+        {
+          "year": 1991,
+          "value": 43833.484
+        },
+        {
+          "year": 1992,
+          "value": 44245.527
+        },
+        {
+          "year": 1993,
+          "value": 44490.758
+        },
+        {
+          "year": 1994,
+          "value": 45532.805
+        },
+        {
+          "year": 1995,
+          "value": 46720.29
+        },
+        {
+          "year": 1996,
+          "value": 48095.965
+        },
+        {
+          "year": 1997,
+          "value": 49881.875
+        },
+        {
+          "year": 1998,
+          "value": 51879.38
+        },
+        {
+          "year": 1999,
+          "value": 54134.363
+        },
+        {
+          "year": 2000,
+          "value": 56016.87
+        },
+        {
+          "year": 2001,
+          "value": 56887.434
+        },
+        {
+          "year": 2002,
+          "value": 56664.414
+        },
+        {
+          "year": 2003,
+          "value": 56452.867
+        },
+        {
+          "year": 2004,
+          "value": 57391.363
+        },
+        {
+          "year": 2005,
+          "value": 58422.01
+        },
+        {
+          "year": 2006,
+          "value": 60391.543
+        },
+        {
+          "year": 2007,
+          "value": 62601.62
+        },
+        {
+          "year": 2008,
+          "value": 63678.402
+        },
+        {
+          "year": 2009,
+          "value": 61029.73
+        },
+        {
+          "year": 2010,
+          "value": 61518.555
+        },
+        {
+          "year": 2011,
+          "value": 62318.14
+        },
+        {
+          "year": 2012,
+          "value": 61480.812
+        },
+        {
+          "year": 2013,
+          "value": 61281.29
+        },
+        {
+          "year": 2014,
+          "value": 62045.855
+        },
+        {
+          "year": 2015,
+          "value": 63081.395
+        },
+        {
+          "year": 2016,
+          "value": 64267.74
+        },
+        {
+          "year": 2017,
+          "value": 65666.0
+        },
+        {
+          "year": 2018,
+          "value": 66758.266
+        },
+        {
+          "year": 2019,
+          "value": 67847.85
+        },
+        {
+          "year": 2020,
+          "value": 64862.19
+        },
+        {
+          "year": 2021,
+          "value": 68573.56
+        },
+        {
+          "year": 2022,
+          "value": 71324.04
+        },
+        {
+          "year": 2023,
+          "value": 70198.93
+        },
+        {
+          "year": 2024,
+          "value": 70498.88
+        }
+      ]
+    },
     "life": {
       "label": "Life expectancy",
       "unit": "years",
@@ -497,6 +644,36 @@
       "Estonia": 1.367,
       "Denmark": 5.948,
       "United Kingdom": 68.683
+    },
+    "gdp": {
+      "Poland": 45153.043,
+      "Portugal": 42197.203,
+      "Slovakia": 40319.055,
+      "Romania": 40504.0,
+      "Hungary": 40686.934,
+      "Ireland": 119037.734,
+      "Latvia": 37611.67,
+      "Italy": 53265.004,
+      "Netherlands": 70498.88,
+      "Norway": 91105.25,
+      "Luxembourg": 128475.28,
+      "Lithuania": 47165.367,
+      "Slovenia": 48648.906,
+      "Sweden": 62978.938,
+      "United Kingdom": 52621.18,
+      "Spain": 48460.293,
+      "France": 54799.348,
+      "Switzerland": 82286.18,
+      "Greece": 37474.28,
+      "Germany": 62554.555,
+      "Czechia": 47963.9,
+      "Denmark": 71431.29,
+      "Finland": 56123.15,
+      "Estonia": 41189.668,
+      "Bulgaria": 34221.53,
+      "Croatia": 42829.2,
+      "Belgium": 63347.785,
+      "Austria": 63788.08
     },
     "life": {
       "Italy": 83.716,
