@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-07-27T09:50:55.954152+00:00",
+  "refreshed_at": "2026-08-03T09:42:28.687968+00:00",
   "country": "Netherlands",
   "source": "Our World in Data (CC-BY)",
   "indicators": {
@@ -300,75 +300,75 @@
       "series": [
         {
           "year": 1990,
-          "value": 43128.312
+          "value": 43128.31
         },
         {
           "year": 1991,
-          "value": 43833.484
+          "value": 43833.477
         },
         {
           "year": 1992,
-          "value": 44245.527
+          "value": 44245.52
         },
         {
           "year": 1993,
-          "value": 44490.758
+          "value": 44490.75
         },
         {
           "year": 1994,
-          "value": 45532.805
+          "value": 45532.797
         },
         {
           "year": 1995,
-          "value": 46720.29
+          "value": 46720.28
         },
         {
           "year": 1996,
-          "value": 48095.965
+          "value": 48095.99
         },
         {
           "year": 1997,
-          "value": 49881.875
+          "value": 49881.895
         },
         {
           "year": 1998,
-          "value": 51879.38
+          "value": 51879.36
         },
         {
           "year": 1999,
-          "value": 54134.363
+          "value": 54134.35
         },
         {
           "year": 2000,
-          "value": 56016.87
+          "value": 56016.832
         },
         {
           "year": 2001,
-          "value": 56887.434
+          "value": 56887.4
         },
         {
           "year": 2002,
-          "value": 56664.414
+          "value": 56664.402
         },
         {
           "year": 2003,
-          "value": 56452.867
+          "value": 56452.87
         },
         {
           "year": 2004,
-          "value": 57391.363
+          "value": 57391.35
         },
         {
           "year": 2005,
-          "value": 58422.01
+          "value": 58422.03
         },
         {
           "year": 2006,
-          "value": 60391.543
+          "value": 60391.516
         },
         {
           "year": 2007,
-          "value": 62601.62
+          "value": 62601.66
         },
         {
           "year": 2008,
@@ -376,11 +376,11 @@
         },
         {
           "year": 2009,
-          "value": 61029.73
+          "value": 61029.734
         },
         {
           "year": 2010,
-          "value": 61518.555
+          "value": 61518.58
         },
         {
           "year": 2011,
@@ -388,39 +388,39 @@
         },
         {
           "year": 2012,
-          "value": 61480.812
+          "value": 61480.84
         },
         {
           "year": 2013,
-          "value": 61281.29
+          "value": 61281.312
         },
         {
           "year": 2014,
-          "value": 62045.855
+          "value": 62045.848
         },
         {
           "year": 2015,
-          "value": 63081.395
+          "value": 63081.41
         },
         {
           "year": 2016,
-          "value": 64267.74
+          "value": 64267.746
         },
         {
           "year": 2017,
-          "value": 65666.0
+          "value": 65665.99
         },
         {
           "year": 2018,
-          "value": 66758.266
+          "value": 66758.24
         },
         {
           "year": 2019,
-          "value": 67847.85
+          "value": 67847.88
         },
         {
           "year": 2020,
-          "value": 64862.19
+          "value": 64862.188
         },
         {
           "year": 2021,
@@ -432,11 +432,15 @@
         },
         {
           "year": 2023,
-          "value": 70198.93
+          "value": 70198.95
         },
         {
           "year": 2024,
-          "value": 70498.88
+          "value": 70493.91
+        },
+        {
+          "year": 2025,
+          "value": 71378.484
         }
       ]
     },
@@ -646,34 +650,34 @@
       "Norway": 5.519
     },
     "gdp": {
-      "Luxembourg": 128475.28,
-      "Netherlands": 70498.88,
-      "Spain": 48460.293,
-      "Lithuania": 47165.367,
-      "Slovakia": 40319.055,
-      "Slovenia": 48648.906,
-      "United Kingdom": 52621.18,
-      "Austria": 63788.08,
-      "Portugal": 42197.203,
-      "Romania": 40504.0,
-      "Poland": 45153.043,
-      "Norway": 91105.25,
-      "Hungary": 40686.934,
-      "Ireland": 119037.734,
-      "Latvia": 37611.67,
-      "Italy": 53265.004,
-      "Germany": 62554.555,
-      "Greece": 37474.28,
-      "Sweden": 62978.938,
-      "France": 54799.348,
-      "Czechia": 47963.9,
-      "Denmark": 71431.29,
-      "Finland": 56123.15,
-      "Estonia": 41189.668,
-      "Bulgaria": 34221.53,
-      "Croatia": 42829.2,
-      "Switzerland": 82286.18,
-      "Belgium": 63347.785
+      "Poland": 46924.59,
+      "Portugal": 42576.812,
+      "Slovakia": 40689.816,
+      "Romania": 40845.984,
+      "Hungary": 41160.64,
+      "Ireland": 131338.44,
+      "Latvia": 38800.543,
+      "Italy": 53606.08,
+      "Netherlands": 71378.484,
+      "Norway": 95173.43,
+      "Luxembourg": 127420.6,
+      "Lithuania": 48839.543,
+      "Slovenia": 49091.02,
+      "Sweden": 63362.46,
+      "United Kingdom": 53993.117,
+      "Spain": 49318.105,
+      "France": 55124.54,
+      "Switzerland": 85732.11,
+      "Greece": 38218.723,
+      "Germany": 62823.773,
+      "Czechia": 49292.49,
+      "Denmark": 72723.27,
+      "Finland": 55735.22,
+      "Estonia": 41604.324,
+      "Bulgaria": 35325.53,
+      "Croatia": 44172.043,
+      "Belgium": 63488.42,
+      "Austria": 63970.402
     },
     "life": {
       "Germany": 81.378,
